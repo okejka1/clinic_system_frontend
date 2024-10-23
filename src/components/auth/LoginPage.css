@@ -1,0 +1,93 @@
+.auth-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background-color: #f7f7f7;
+    height: 100vh;
+}
+
+.auth-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Left section with header and form */
+.login-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 40px;
+}
+
+.login-header {
+    font-size: 2.0em;   /* Larger header */
+    color: #007BFF;      /* Change header color to blue */
+    margin-bottom: 30px; /* Spacing between header and form */
+}
+
+/* Login form */
+.login-form {
+    width: 500px; /* Widen the form */
+}
+
+.login-image-container {
+    padding-left: 40px;
+}
+
+.login-image {
+    width: 600px; /* Adjust size */
+    height: auto;
+}
+
+.vertical-line {
+    width: 2px;
+    background-color: #181818;
+    height: 100%; /* Full height of the container */
+    margin: 0 40px; /* Adjust spacing between sections */
+}
+
+/* Input fields */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%; /* Full width inputs */
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF; /* Change button color to blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem; /* Larger button text */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 15px;
+}
