@@ -12,11 +12,28 @@ function LoginPage() {
 
     const from = location.state?.from?.pathname || '/home';
 
+    // Validate email using regex
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Clear any previous error messages
+        setError('');
+
+        // Check for empty fields
         if (!email || !password) {
             setError('Please fill in all fields.');
+            setTimeout(() => setError(''), 5000);
+            return;
+        }
+
+        // Validate email format
+        if (!validateEmail(email)) {
+            setError('Please enter a valid email address.');
             setTimeout(() => setError(''), 5000);
             return;
         }
@@ -45,7 +62,7 @@ function LoginPage() {
                     <div className="login-form">
                         <h2>Login</h2>
                         {error && <p className="error-message">{error}</p>}
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} noValidate>
                             <div className="form-group">
                                 <label>Email: </label>
                                 <input
@@ -53,6 +70,7 @@ function LoginPage() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
+                                    onInvalid={(e) => e.preventDefault()} // Prevents the default message
                                 />
                             </div>
                             <div className="form-group">

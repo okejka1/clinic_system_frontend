@@ -35,6 +35,21 @@ export default class ApiService {
         })
         return response.data
     }
+
+    /* This is to delete a user */
+    static async deleteUser(userId) {
+        const response = await axios.delete(`${this.BASE_URL}/users/delete/${userId}`, {
+            headers: this.getHeader()
+        })
+        return response.data
+    }
+
+    static async getUserProfile() {
+        const response = await axios.get(`${this.BASE_URL}/users/get-logged-in-profile-info`, {
+            headers: this.getHeader()
+        })
+        return response.data
+    }
     /**AUTHENTICATION CHECKER */
     static logout() {
         localStorage.removeItem('token')

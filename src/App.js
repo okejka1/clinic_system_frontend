@@ -6,6 +6,7 @@ import './App.css';
 import Navbar from './components/common/Navbar';
 import AddClinicianPage from "./components/admin/AddClinicianPage";
 import {AdminRoute} from "./service/guard";
+import UserListPage from "./components/admin/UserListPage";
 
 function App() {
     return (
@@ -31,9 +32,10 @@ function ContentWithNavbar() {
 
                     {/* Admin Routes */}
                     <Route path="/admin"
-                           element={<AdminRoute element={<AddClinicianPage />} />}
+                           element={<AdminRoute element={<UserListPage />} />}
                     />
                     <Route path="/admin/add-clinician" element={<AdminRoute element={<AddClinicianPage />} />} />
+
 
 
 
