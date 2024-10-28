@@ -14,6 +14,7 @@
     text-align: center;
     color: #333;
     margin-bottom: 20px;
+    font-size: 30px;
 }
 
 /* Form group layout */
@@ -85,22 +86,7 @@ button[type="submit"]:hover {
 }
 
 .success-message {
-    color: white;
+    color: #ffffff;
     background-color: #28a745;
 }
 
-/* Adjust layout for mobile devices */
-@media (max-width: 600px) {
-    .add-clinician {
-        padding: 15px;
-    }
-
-    .form-group label {
-        font-size: 14px;
-    }
-
-    button[type="submit"] {
-        font-size: 14px;
-        padding: 10px;
-    }
-}

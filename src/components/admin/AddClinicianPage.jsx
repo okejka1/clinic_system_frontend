@@ -73,8 +73,7 @@ function AddClinicianPage() {
 
                 setSuccessMessage('Clinician added successfully');
                 setTimeout(() => {
-                    setSuccessMessage('');// Navigate to the login page after a delay
-                    navigate("/.")
+                    setSuccessMessage('');
                 }, 3000);
             }
         } catch (error) {
