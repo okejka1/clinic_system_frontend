@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import ApiService from '../../service/ApiService';
 import './MedicationListPage.css';
 
 const MedicationListPage = () => {
+    const navigate = useNavigate(); // Initialize useNavigate
     const [medications, setMedications] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -46,6 +48,34 @@ const MedicationListPage = () => {
     const handleFilterSubmit = (e) => {
         e.preventDefault();
         fetchMedications();
+    };
+
+    const handleToggleActiveStatus = async (medicationId, isActive) => {
+        try {
+            if (isActive) {
+                await ApiService.deactivateMedication(medicationId);
+            } else {
+                await ApiService.reactivateMedication(medicationId);
+            }
+            await fetchMedications();
+        } catch (error) {
+            console.error("Error updating medication status:", error);
+            setError('Failed to update medication status');
+        }
+    };
+
+    const handleDeleteMedication = async (medicationId) => {
+        try {
+            await ApiService.deleteMedication(medicationId);
+            fetchMedications();
+        } catch (error) {
+            console.error("Error deleting medication:", error);
+            setError('Failed to delete medication');
+        }
+    };
+
+    const handleViewMedicationUnit = (medicationId) => {
+        navigate(`/medications/${medicationId}`); // Navigate to MedicationUnitPage with the medication ID
     };
 
     return (
@@ -107,18 +137,21 @@ const MedicationListPage = () => {
                         <table>
                             <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>Dosage</th>
                                 <th>Company</th>
                                 <th>Status</th>
                                 <th>Description</th>
+                                <th>Number of units</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             {medications.map((medication) => (
                                 <tr key={medication.id}>
+                                    <td>{medication.id}</td> {/* Display the medication ID */}
                                     <td>
                                         <img
                                             src={medication.medicationPhotoUrl || 'default-image-url'}
@@ -131,10 +164,23 @@ const MedicationListPage = () => {
                                     <td>{medication.company}</td>
                                     <td>{medication.active ? 'Active' : 'Inactive'}</td>
                                     <td>{medication.description}</td>
+                                    <td>{medication.unitCount}</td>
                                     <td>
-                                        <button className="">dsd</button>
-                                        <button className="">dsd</button>
-
+                                        <button
+                                            onClick={() => handleToggleActiveStatus(medication.id, medication.active)}
+                                        >
+                                            {medication.active ? 'Deactivate' : 'Reactivate'}
+                                        </button>
+                                        <button
+                                            onClick={() => handleDeleteMedication(medication.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                        <button
+                                            onClick={() => handleViewMedicationUnit(medication.id)}
+                                        >
+                                            View Units
+                                        </button>
                                     </td>
                                 </tr>
                             ))}

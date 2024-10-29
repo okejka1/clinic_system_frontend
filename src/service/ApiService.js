@@ -67,38 +67,40 @@ export default class ApiService {
         });
         return result.data;
     }
-
     static async deactivateMedication(medicationId) {
-        const response = await axios.put(`${this.BASE_URL}/medications/deactivate/${medicationId}`, {
-            headers: this.getHeader()
-        })
-        return response.data
+        const response = await axios.put(
+            `${this.BASE_URL}/medications/deactivate/${medicationId}`,
+            {}, // Ensure the request body is an empty object if needed
+            { headers: this.getHeader() }
+        );
+        return response.data;
     }
 
     static async reactivateMedication(medicationId) {
-        const response = await axios.put(`${this.BASE_URL}/medications/reactivate/${medicationId}`, {
+        const response = await axios.put(
+            `${this.BASE_URL}/medications/reactivate/${medicationId}`,
+            {}, // Ensure the request body is an empty object if needed
+            { headers: this.getHeader() }
+        );
+        return response.data;
+    }
+
+    static async deleteMedication(medicationId) {
+        const response = await axios.delete(`${this.BASE_URL}/medications/delete/${medicationId}`, {
             headers: this.getHeader()
         })
         return response.data
     }
 
-    static async deleteMedication(medicationId) {
-        const response = await axios.put(`${this.BASE_URL}/medications/delete/${medicationId}`, {
+
+    /* MEDICATION UNIT SERVICE */
+
+    static async addMedicationUnit(medicationUnitId, formData) {
+        const response = await axios.post(`${this.BASE_URL}/medication/${medicationUnitId}/units`, formData, {
             headers: this.getHeader()
-        })
-        return response.data
+        });
+        return response.data;
     }
-    // static async getFilteredMedications(name = '', dosage = '', company = '', isActive = null) {
-    //     let url = `${this.BASE_URL}/medications/list`;
-    //     if (name) url += `name=${name}&`;
-    //     if (dosage) url += `dosage=${dosage}&`;
-    //     if (company) url += `company=${company}&`;
-    //     if (isActive !== null) url += `isActive=${isActive}`;
-    //     const result = await axios.get(url, {
-    //         headers: this.getHeader()
-    //     });
-    //     return result.data;
-    // }
 
     static async getFilteredMedications(name = '', dosage = '', company = '', isActive = null) {
         // Prepare URL based on provided parameters
@@ -113,9 +115,11 @@ export default class ApiService {
         const result = await axios.get(url, {
             headers: this.getHeader()
         });
-
         return result.data; // Adjust to match actual data structure
     }
+
+
+
 
 
 
