@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import ApiService from '../../service/ApiService';
-import './MedicationListPage.css';
+import "../styles.css"
 
 const MedicationListPage = () => {
     const navigate = useNavigate(); // Initialize useNavigate
@@ -73,6 +73,13 @@ const MedicationListPage = () => {
             setError('Failed to delete medication');
         }
     };
+
+
+    const handleAddBulkUnits = (medication) => {
+        // Navigate with medicationId as a URL parameter
+        navigate(`/medications/${medication.id}/add-units`);
+    };
+
 
     const handleViewMedicationUnit = (medicationId) => {
         navigate(`/medications/${medicationId}`); // Navigate to MedicationUnitPage with the medication ID
@@ -146,6 +153,7 @@ const MedicationListPage = () => {
                                 <th>Description</th>
                                 <th>Number of units</th>
                                 <th>Actions</th>
+                                <th>Add units</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -180,6 +188,11 @@ const MedicationListPage = () => {
                                             onClick={() => handleViewMedicationUnit(medication.id)}
                                         >
                                             View Units
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button className="add-units-button" onClick={() => handleAddBulkUnits(medication)}>
+                                            Add Bulk Units
                                         </button>
                                     </td>
                                 </tr>

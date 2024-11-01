@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ApiService from "../../service/ApiService";
 import './LoginPage.css';  // Assuming your CSS file is imported here
+import "../styles.css"
 
 function LoginPage() {
     const [email, setEmail] = useState('');

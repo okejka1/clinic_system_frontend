@@ -37,8 +37,6 @@
     transition: border-color 0.3s ease;
 }
 
-
-
 button[type="submit"] {
     width: 100%;
     padding: 12px;
@@ -51,20 +49,4 @@ button[type="submit"] {
     transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
-    background-color: #0056b3;
-}
 
-.error-message {
-        color: white;
-        background-color: #dc3545;
-}
-
-.success-message {
-    color: white;
-    background-color: green;
-    font-size: 1em;
-    text-align: center;
-    margin-top: 15px;
-}
-/* test*/

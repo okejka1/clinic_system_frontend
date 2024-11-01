@@ -9,6 +9,7 @@ import {AdminRoute, ProtectedRoute} from "./service/guard";
 import UserListPage from "./components/admin/UserListPage";
 import AddMedicationPage from "./components/medication/AddMedicationPage";
 import MediationListPage from "./components/medication/MediationListPage";
+import AddBulkMedicationUnitPage from "./components/medicationUnit/AddBulkMedicationUnitPage";
 
 function App() {
     return (
@@ -34,6 +35,9 @@ function ContentWithNavbar() {
 
                     {/* Protected Routes */}
                     <Route path="/list-of-medications" element={<ProtectedRoute element={<MediationListPage/>} />}  />
+                    <Route path="/list-of-medications" element={<ProtectedRoute element={<AddBulkMedicationUnitPage/>} />}  />
+                    <Route path="/medications/:medicationId/add-units" element={<ProtectedRoute element={<AddBulkMedicationUnitPage />} />} />
+
 
                     {/* Admin Routes */}
                     <Route path="/admin/list-of-users" element={<AdminRoute element={<UserListPage />} />}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ApiService from '../../service/ApiService';  // Assuming ApiService handles API calls
 import { useNavigate } from 'react-router-dom';
 import './AddClinicianPage.css';
+import "../styles.css"
 
 function AddClinicianPage() {
     const navigate = useNavigate();

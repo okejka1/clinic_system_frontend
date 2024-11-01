@@ -57,6 +57,8 @@ export default class ApiService {
 
 
 
+
+
     // *MEDICATION SERVICE* //
     static async addMedication(formData) {
         const result = await axios.post(`${this.BASE_URL}/medications/add`, formData, {
@@ -92,11 +94,8 @@ export default class ApiService {
         return response.data
     }
 
-
-    /* MEDICATION UNIT SERVICE */
-
-    static async addMedicationUnit(medicationUnitId, formData) {
-        const response = await axios.post(`${this.BASE_URL}/medication/${medicationUnitId}/units`, formData, {
+    static async getMedicationById(medicationId) {
+        const response = await axios.get(`${this.BASE_URL}/medications/${medicationId}`, {
             headers: this.getHeader()
         });
         return response.data;
@@ -117,6 +116,41 @@ export default class ApiService {
         });
         return result.data; // Adjust to match actual data structure
     }
+
+
+
+    /* MEDICATION UNIT SERVICE */
+
+    static async addMedicationUnit(medicationId, formData) {
+        try {
+            const response = await axios.post(
+                `${this.BASE_URL}/medication-units/medication/${medicationId}/units`,
+                formData, // Payload as JSON in the request body
+                { headers: this.getHeader() }
+            );
+            return response.data;
+        } catch (error) {
+            console.error("API Error:", error.response?.data || error.message);
+            throw error; // Rethrow to let the component handle it
+        }
+    }
+
+    static async addMedicationUnit(medicationId, formData) {
+        try {
+            const response = await axios.post(
+                `${this.BASE_URL}/medication-units/medication/${medicationId}/units`,
+                formData, // Payload as JSON in the request body
+                { headers: this.getHeader() }
+            );
+            return response.data;
+        } catch (error) {
+            console.error("API Error:", error.response?.data || error.message);
+            throw error; // Rethrow to let the component handle it
+        }
+    }
+
+
+
 
 
 

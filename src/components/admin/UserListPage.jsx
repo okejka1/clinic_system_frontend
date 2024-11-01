@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ApiService from '../../service/ApiService';
 import './UserListPage.css';
+import "../styles.css"
 
 function UserListPage() {
     const [users, setUsers] = useState([]);

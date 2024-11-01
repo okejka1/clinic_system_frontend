@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink, useNavigate} from "react-router-dom";
 import ApiService from "../../service/ApiService";
 import './Navbar.css';  // Assuming you add the CSS below in Navbar.css
+import "../styles.css"
 
 function Navbar() {
     const navigate = useNavigate();

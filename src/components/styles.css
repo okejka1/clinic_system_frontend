@@ -1,0 +1,15 @@
+
+
+.error-message {
+    color: white;
+    background-color: #dc3545;
+}
+
+.success-message {
+    color: #ffffff;
+    background-color: #28a745;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}

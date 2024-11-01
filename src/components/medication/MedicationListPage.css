@@ -56,9 +56,7 @@ button[type="submit"] {
     transition: background-color 0.3s;
 }
 
-button[type="submit"]:hover {
-    background-color: #0056b3;
-}
+
 
 /* Table Styles */
 .medication-table {
@@ -112,10 +110,6 @@ button[type="submit"]:hover {
     color: #555;
 }
 
-.error-message {
-    color: white;
-    background-color: #dc3545;
-}
 
 .no-medications {
     color: #6c757d;
