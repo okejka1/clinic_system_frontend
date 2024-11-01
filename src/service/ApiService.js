@@ -135,25 +135,13 @@ export default class ApiService {
         }
     }
 
-    static async addMedicationUnit(medicationId, formData) {
-        try {
-            const response = await axios.post(
-                `${this.BASE_URL}/medication-units/medication/${medicationId}/units`,
-                formData, // Payload as JSON in the request body
-                { headers: this.getHeader() }
-            );
-            return response.data;
-        } catch (error) {
-            console.error("API Error:", error.response?.data || error.message);
-            throw error; // Rethrow to let the component handle it
-        }
+    static async getMedicationUnits(medicationId){
+        const response = await axios.get(`${this.BASE_URL}/medication-units/medication/${medicationId}/units`,
+        {
+            headers: this.getHeader()
+        });
+        return response.data;
     }
-
-
-
-
-
-
 
 
 
