@@ -21,7 +21,7 @@ function Navbar() {
     return (
         <nav className="navbar">
             <div className="navbar-brand">
-                <NavLink to="/home"> :) </NavLink>
+                <NavLink to="/home"> Medication distribution system </NavLink>
             </div>
             <ul className="navbar-ul">
                 {isAuthenticated && <li><NavLink to="/list-of-medications" activeclassname="active">List of medications</NavLink></li>}

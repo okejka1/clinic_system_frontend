@@ -143,6 +143,14 @@ export default class ApiService {
         return response.data;
     }
 
+    static async deleteMedicationUnit(medicationId, medicationUnitId){
+        const response = await axios.delete(`${this.BASE_URL}/medication-units/medication/${medicationId}/units/${medicationUnitId}`,
+            {
+                headers: this.getHeader()
+            });
+        return response.data;
+    }
+
 
 
 

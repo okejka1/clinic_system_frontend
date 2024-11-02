@@ -10,6 +10,7 @@ import UserListPage from "./components/admin/UserListPage";
 import AddMedicationPage from "./components/medication/AddMedicationPage";
 import MediationListPage from "./components/medication/MediationListPage";
 import AddBulkMedicationUnitPage from "./components/medicationUnit/AddBulkMedicationUnitPage";
+import MedicationUnitListPage from "./components/medicationUnit/MedicationUnitListPage";
 
 function App() {
     return (
@@ -35,7 +36,7 @@ function ContentWithNavbar() {
 
                     {/* Protected Routes */}
                     <Route path="/list-of-medications" element={<ProtectedRoute element={<MediationListPage/>} />}  />
-                    <Route path="/list-of-medications" element={<ProtectedRoute element={<AddBulkMedicationUnitPage/>} />}  />
+                    <Route path="/medications/:medicationId/list" element={<ProtectedRoute element={<MedicationUnitListPage/>} />}  />
                     <Route path="/medications/:medicationId/add-units" element={<ProtectedRoute element={<AddBulkMedicationUnitPage />} />} />
 
 
@@ -44,8 +45,6 @@ function ContentWithNavbar() {
                     />
                     <Route path="/admin/add-clinician" element={<AdminRoute element={<AddClinicianPage />} />} />
                     <Route path="/admin/add-medication" element={<AdminRoute element={<AddMedicationPage />} />} />
-
-
 
 
                     {/* Fallback Route */}

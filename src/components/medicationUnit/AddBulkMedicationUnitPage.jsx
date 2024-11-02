@@ -22,7 +22,7 @@
                     setMedication(response.medication);
                 } catch (error) {
                     console.error("Error fetching medication:", error);
-                    setMessage('Failed to load medication details');
+                    setErrorMessage('Failed to load medication details');
                 }
             };
             fetchMedication();
@@ -73,7 +73,7 @@
                 setQuantity(0); // Reset quantity
             } catch (error) {
                 console.error("Error adding medication units:", error.response ? error.response.data : error);
-                setMessage('Error adding medication units: ' + (error.response ? error.response.data.message : 'Unknown error'));
+                setErrorMessage('Error adding medication units: ' + (error.response ? error.response.data.message : 'Unknown error'));
             }
         };
 
@@ -81,8 +81,6 @@
         return (
             <div className="add-bulk-medication-unit-page">
                 <h2>Add Bulk Medication Units</h2>
-
-
 
                 {medication ? (
                     <div className="medication-info">

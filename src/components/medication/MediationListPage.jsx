@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
-import "../styles.css"
+import "../styles.css";
+import "./MedicationListPage.css";
 
 const MedicationListPage = () => {
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
     const [medications, setMedications] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -74,57 +75,34 @@ const MedicationListPage = () => {
         }
     };
 
-
     const handleAddBulkUnits = (medication) => {
-        // Navigate with medicationId as a URL parameter
         navigate(`/medications/${medication.id}/add-units`);
     };
 
-
     const handleViewMedicationUnit = (medicationId) => {
-        navigate(`/medications/${medicationId}`); // Navigate to MedicationUnitPage with the medication ID
+        navigate(`/medications/${medicationId}/list`);
     };
 
     return (
         <div className="medication-list-page">
             <h1>Medication List</h1>
 
-            {/* Filter Form */}
             <form className="filter-form" onSubmit={handleFilterSubmit}>
                 <div className="form-group">
                     <label>Name:</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={filters.name}
-                        onChange={handleInputChange}
-                    />
+                    <input type="text" name="name" value={filters.name} onChange={handleInputChange} />
                 </div>
                 <div className="form-group">
                     <label>Dosage:</label>
-                    <input
-                        type="text"
-                        name="dosage"
-                        value={filters.dosage}
-                        onChange={handleInputChange}
-                    />
+                    <input type="text" name="dosage" value={filters.dosage} onChange={handleInputChange} />
                 </div>
                 <div className="form-group">
                     <label>Company:</label>
-                    <input
-                        type="text"
-                        name="company"
-                        value={filters.company}
-                        onChange={handleInputChange}
-                    />
+                    <input type="text" name="company" value={filters.company} onChange={handleInputChange} />
                 </div>
                 <div className="form-group">
                     <label>Status:</label>
-                    <select
-                        name="isActive"
-                        value={filters.isActive}
-                        onChange={handleInputChange}
-                    >
+                    <select name="isActive" value={filters.isActive} onChange={handleInputChange}>
                         <option value="">All</option>
                         <option value="true">Active</option>
                         <option value="false">Inactive</option>
@@ -133,7 +111,6 @@ const MedicationListPage = () => {
                 <button type="submit">Apply Filters</button>
             </form>
 
-            {/* Medication Table */}
             {loading ? (
                 <p>Loading...</p>
             ) : error ? (
@@ -152,20 +129,17 @@ const MedicationListPage = () => {
                                 <th>Status</th>
                                 <th>Description</th>
                                 <th>Number of units</th>
-                                <th>Actions</th>
+                                <th>Activation / Deletion</th>
                                 <th>Add units</th>
+                                <th>View unit list</th>
                             </tr>
                             </thead>
                             <tbody>
                             {medications.map((medication) => (
                                 <tr key={medication.id}>
-                                    <td>{medication.id}</td> {/* Display the medication ID */}
+                                    <td>{medication.id}</td>
                                     <td>
-                                        <img
-                                            src={medication.medicationPhotoUrl || 'default-image-url'}
-                                            alt={medication.name}
-                                            className="medication-photo"
-                                        />
+                                        <img src={medication.medicationPhotoUrl || 'default-image-url'} alt={medication.name} className="medication-photo" />
                                     </td>
                                     <td>{medication.name}</td>
                                     <td>{medication.dosage}</td>
@@ -174,25 +148,21 @@ const MedicationListPage = () => {
                                     <td>{medication.description}</td>
                                     <td>{medication.unitCount}</td>
                                     <td>
-                                        <button
-                                            onClick={() => handleToggleActiveStatus(medication.id, medication.active)}
-                                        >
-                                            {medication.active ? 'Deactivate' : 'Reactivate'}
-                                        </button>
-                                        <button
-                                            onClick={() => handleDeleteMedication(medication.id)}
-                                        >
-                                            Delete
-                                        </button>
-                                        <button
-                                            onClick={() => handleViewMedicationUnit(medication.id)}
-                                        >
-                                            View Units
-                                        </button>
+                                        <div className="action-buttons">
+                                            <button className="deactivate" onClick={() => handleToggleActiveStatus(medication.id, medication.active)}>
+                                                {medication.active ? 'Deactivate' : 'Reactivate'}
+                                            </button>
+                                            <button className="delete" onClick={() => handleDeleteMedication(medication.id)}>Delete</button>
+                                        </div>
                                     </td>
                                     <td>
                                         <button className="add-units-button" onClick={() => handleAddBulkUnits(medication)}>
                                             Add Bulk Units
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button className={`view-units-button ${medication.active ? 'active' : 'inactive'}`} onClick={() => handleViewMedicationUnit(medication.id)}>
+                                            View Units
                                         </button>
                                     </td>
                                 </tr>
