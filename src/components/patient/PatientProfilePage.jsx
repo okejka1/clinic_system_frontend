@@ -4,6 +4,11 @@ import ApiService from '../../service/ApiService';
 
 const PatientProfilePage = () => {
 
-    useEffect(() => {})
+    return (
+        <div className="patient-profile">
+            <h1>Patient's profile</h1>
+        </div>
+    );
+
 }
 export default PatientProfilePage;

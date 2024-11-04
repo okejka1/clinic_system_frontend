@@ -12,7 +12,7 @@ function PatientListPage() {
     const [successMessage, setSuccessMessage] = useState('');
 
     // Function to fetch users based on search term
-    const fetchUsers = async (name = '') => {
+    const fetchPatients = async (name = '') => {
         try {
             const response = await ApiService.getAllPatients(name); // Pass the search term to API call
             setPatients(response.patientList || []);
@@ -23,7 +23,7 @@ function PatientListPage() {
 
     // Fetch users when component mounts and when searchTerm changes
     useEffect(() => {
-        fetchUsers(searchTerm);
+        fetchPatients(searchTerm);
     }, [searchTerm]);
 
     // Handle search term input change
@@ -35,9 +35,6 @@ function PatientListPage() {
         navigate(`/patients/get-by-id/${patientId}`);
     }
 
-    const handleViewMedicationUnit = (medicationId) => {
-        navigate(`/medications/${medicationId}/list`);
-    };
     const handleDeletePatient = async (patientId) => {
         const confirmDelete = window.confirm("Are you sure you want to delete this patient?");
         if (confirmDelete) {
@@ -84,7 +81,7 @@ function PatientListPage() {
                             <td>{patient.lastName}</td>
                             <td>{patient.birthDate}</td>
                             <td>{patient.phoneNumber}</td>
-                            <td>{patient.medicationHistory}</td>
+                            <td>{patient.medicalHistory}</td>
                             <td>
                                 <button onClick={() => handleDeletePatient(patient.id)}>Delete</button>
                             </td>
