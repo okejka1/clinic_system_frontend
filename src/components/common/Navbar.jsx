@@ -24,6 +24,8 @@ function Navbar() {
                 <NavLink to="/home"> Medication distribution system </NavLink>
             </div>
             <ul className="navbar-ul">
+                {isClinician && <li><NavLink to="/patients/add-patient" activeclassname="active">Add patient</NavLink></li>}
+                {isClinician && <li><NavLink to="/patients/list" activeclassname="active">List of patients</NavLink></li>}
                 {isAuthenticated && <li><NavLink to="/list-of-medications" activeclassname="active">List of medications</NavLink></li>}
                 {isAdmin && <li><NavLink to="/admin/add-medication" activeclassname="active">Add medication</NavLink></li>}
                 {isAdmin && <li><NavLink to="/admin/list-of-users" activeclassname="active">List of users</NavLink></li>}

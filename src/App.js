@@ -11,6 +11,9 @@ import AddMedicationPage from "./components/medication/AddMedicationPage";
 import MediationListPage from "./components/medication/MediationListPage";
 import AddBulkMedicationUnitPage from "./components/medicationUnit/AddBulkMedicationUnitPage";
 import MedicationUnitListPage from "./components/medicationUnit/MedicationUnitListPage";
+import AddPatientPage from "./components/patient/AddPatientPage";
+import PatientListPage from "./components/patient/PatientListPage";
+import PatientProfilePage from "./components/patient/PatientProfilePage";
 
 function App() {
     return (
@@ -35,6 +38,9 @@ function ContentWithNavbar() {
                     <Route exact path="/login" element={<LoginPage />} />
 
                     {/* Protected Routes */}
+                    <Route path="/patients/get-by-id/:patientId" element={<ProtectedRoute element={<PatientProfilePage/>} />}  />
+                    <Route path="/patients/list" element={<ProtectedRoute element={<PatientListPage/>} />}  />
+                    <Route path="/patients/add-patient" element={<ProtectedRoute element={<AddPatientPage/>} />}  />
                     <Route path="/list-of-medications" element={<ProtectedRoute element={<MediationListPage/>} />}  />
                     <Route path="/medications/:medicationId/list" element={<ProtectedRoute element={<MedicationUnitListPage/>} />}  />
                     <Route path="/medications/:medicationId/add-units" element={<ProtectedRoute element={<AddBulkMedicationUnitPage />} />} />

@@ -47,9 +47,28 @@ function HomePage() {
                 <div className="clinician-actions">
                     <h2>Clinician Actions</h2>
                     <ul className="actions-list">
-                        <li className="action-item">View Patients - Access patient information and track their history.</li>
-                        <li className="action-item">Manage Prescriptions - Prescribe and update medication for patients.</li>
-                        <li className="action-item">Access Clinical Guidelines - Stay up-to-date with the latest clinical protocols.</li>
+                        <li className="action-item">
+                            <img src="/assets/images/patient.png" alt="Manage Patients" className="action-icon"/>
+                            <div>
+                                <strong>Manage Patients</strong> - Easily create and remove patient profiles.
+                                Maintain an organized list of patient with an easy access to their information and historical intakes.
+                            </div>
+                        </li>
+                        <li className="action-item">
+                            <img src="/assets/images/injection.png" alt="Manage Intakes  " className="action-icon"/>
+                            <div>
+                                <strong>Manage Intakes</strong> - Place a record for dosed medication unit to particular
+                                patient in order to
+                                keep medication unit list clear.
+                            </div>
+                        </li>
+                        <li className="action-item">
+                            <img src="/assets/images/pills.png" alt="Manage Medication " className="action-icon"/>
+                            <div>
+                                <strong>Medication list</strong> - State up to date with all of the medications ordered / given / disposed in your clinic.
+                                Check the expiry date or number of units in stock.
+                            </div>
+                        </li>
                     </ul>
                 </div>
             )}

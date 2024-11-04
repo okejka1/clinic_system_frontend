@@ -152,6 +152,40 @@ export default class ApiService {
     }
 
 
+    /* PATIENT SERVICE */
+
+    static async addPatient(registration) {
+        const response = await axios.post(`${this.BASE_URL}/patients/add-patients`, registration, {
+            headers: this.getHeader()
+        })
+
+        return response.data
+    }
+
+    static async getAllPatients(name = '') {
+        const url = name ? `${this.BASE_URL}/users/all?name=${name}` : `${this.BASE_URL}/patients/all`;
+        const response = await axios.get(url, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
+
+    static async deletePatient(userId) {
+        const response = await axios.delete(`${this.BASE_URL}/patients/delete/${userId}`, {
+            headers: this.getHeader()
+        })
+        return response.data
+    }
+
+    static async getPatientById(patientId) {
+        const response = await axios.get(`${this.BASE_URL}/patients/get-by-id/${patientId}`, {
+            headers: this.getHeader()
+        })
+        return response.data
+    }
+
+
+
 
 
     /**AUTHENTICATION CHECKER */
