@@ -184,6 +184,46 @@ export default class ApiService {
         return response.data
     }
 
+    /* INTAKE SERVICE */
+
+    static async getAllIntakes(
+        medicationType = '',
+        clinicianFirstName = '',
+        clinicianLastName = '',
+        patientFirstName = '',
+        patientLastName = ''
+    ) {
+        // Construct the URL directly with the parameters
+        const url = new URL(`${this.BASE_URL}/intakes/list`);
+        if (medicationType) url.searchParams.append('medicationType', medicationType);
+        if (clinicianFirstName) url.searchParams.append('clinicianFirstName', clinicianFirstName);
+        if (clinicianLastName) url.searchParams.append('clinicianLastName', clinicianLastName);
+        if (patientFirstName) url.searchParams.append('patientFirstName', patientFirstName);
+        if (patientLastName) url.searchParams.append('patientLastName', patientLastName);
+
+        // Make the GET request with headers
+        const response = await axios.get(url.toString(), {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
+
+
+
+
+    static async createIntake(intakeData) {
+        const response = await axios.post(`${this.BASE_URL}/intakes/add`, intakeData, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
+
+    static async getIntakesByPatient(patientId) {
+        const response = await axios.get(`${this.BASE_URL}/intakes/patient/${patientId}`, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
 
 
 
