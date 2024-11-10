@@ -58,7 +58,9 @@
             }
 
             // Ensure `expiryDate` is formatted as 'YYYY-MM-DD' if set
-            const formattedExpiryDate = expiryDate ? expiryDate.toISOString().split('T')[0] : null;
+            const formattedExpiryDate = expiryDate
+                ? `${expiryDate.getFullYear()}-${String(expiryDate.getMonth() + 1).padStart(2, '0')}-${String(expiryDate.getDate()).padStart(2, '0')}`
+                : null;
 
             const formData = {
                 expiryDate: formattedExpiryDate, // Pass the correctly formatted date

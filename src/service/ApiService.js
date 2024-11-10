@@ -55,10 +55,6 @@ export default class ApiService {
     }
 
 
-
-
-
-
     // *MEDICATION SERVICE* //
     static async addMedication(formData) {
         const result = await axios.post(`${this.BASE_URL}/medications/add`, formData, {

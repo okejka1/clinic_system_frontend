@@ -5,10 +5,12 @@ import ApiService from '../../service/ApiService';
 const IntakeCreationPage = () => {
     const { medicationId } = useParams(); // Destructure medicationId correctly from useParams()
     const [medication, setMedication] = useState(null);
-    const navigate = useNavigate();
+    const [medicationUnits, setMedicationUnits] = useState([]);
+    const [patients, setPatients] = useState([]);
+
     const [clinicianId, setClinicianId] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
-    const [message, setMessage] = useState('');
+    const [succesMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
         const fetchMedication = async () => {
@@ -17,7 +19,7 @@ const IntakeCreationPage = () => {
                 setMedication(response.medication);
             } catch (error) {
                 console.error("Error fetching medication:", error);
-                setMessage('Failed to load medication details');
+                setErrorMessage('Failed to load medication details');
             }
         };
         fetchMedication();
@@ -30,6 +32,7 @@ const IntakeCreationPage = () => {
         };
         fetchClinicianId();
     }, []);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
