@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
 import "../styles.css";
 import "./MedicationListPage.css";
+import "../../service/guard";
 
 const MedicationListPage = () => {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ const MedicationListPage = () => {
         company: '',
         isActive: ''
     });
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const fetchMedications = async () => {
         setLoading(true);
@@ -23,7 +25,6 @@ const MedicationListPage = () => {
             const { name, dosage, company, isActive } = filters;
             const isActiveBool = isActive === 'true' ? true : isActive === 'false' ? false : null;
             const response = await ApiService.getFilteredMedications(name, dosage, company, isActiveBool);
-
             const medications = response.medicationList || [];
             setMedications(medications);
         } catch (error) {
@@ -35,6 +36,7 @@ const MedicationListPage = () => {
     };
 
     useEffect(() => {
+        setIsAdmin(ApiService.isAdmin());
         fetchMedications();
     }, []);
 
@@ -83,6 +85,10 @@ const MedicationListPage = () => {
         navigate(`/medications/${medicationId}/list`);
     };
 
+    const handleIntakeCreation = (medicationId) => {
+        navigate(`/intakes/${medicationId}/add-intake`)
+    };
+
     return (
         <div className="medication-list-page">
             <h1>Medication List</h1>
@@ -116,37 +122,38 @@ const MedicationListPage = () => {
             ) : error ? (
                 <p className="error-message">{error}</p>
             ) : (
-                <div className="medication-table">
-                    {medications.length > 0 ? (
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Dosage</th>
-                                <th>Company</th>
-                                <th>Status</th>
-                                <th>Description</th>
-                                <th>Number of units</th>
-                                <th>Activation / Deletion</th>
-                                <th>Add units</th>
-                                <th>View unit list</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {medications.map((medication) => (
-                                <tr key={medication.id}>
-                                    <td>{medication.id}</td>
-                                    <td>
-                                        <img src={medication.medicationPhotoUrl || 'default-image-url'} alt={medication.name} className="medication-photo" />
-                                    </td>
-                                    <td>{medication.name}</td>
-                                    <td>{medication.dosage}</td>
-                                    <td>{medication.company}</td>
-                                    <td>{medication.active ? 'Active' : 'Inactive'}</td>
-                                    <td>{medication.description}</td>
-                                    <td>{medication.unitCount}</td>
+                <div className="table-wrapper">
+                    <table className="medication-table">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Dosage</th>
+                            <th>Company</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                            <th>Number of units</th>
+                            {isAdmin && <th>Activation / Deletion</th>}
+                            {isAdmin && <th>Add units</th>}
+                            <th>View unit list</th>
+                            <th>Create intake</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {medications.map((medication) => (
+                            <tr key={medication.id}>
+                                <td>{medication.id}</td>
+                                <td>
+                                    <img src={medication.medicationPhotoUrl || 'default-image-url'} alt={medication.name} className="medication-photo" />
+                                </td>
+                                <td>{medication.name}</td>
+                                <td>{medication.dosage}</td>
+                                <td>{medication.company}</td>
+                                <td>{medication.active ? 'Active' : 'Inactive'}</td>
+                                <td>{medication.description}</td>
+                                <td>{medication.unitCount}</td>
+                                {isAdmin && (
                                     <td>
                                         <div className="action-buttons">
                                             <button className="deactivate" onClick={() => handleToggleActiveStatus(medication.id, medication.active)}>
@@ -155,23 +162,28 @@ const MedicationListPage = () => {
                                             <button className="delete" onClick={() => handleDeleteMedication(medication.id)}>Delete</button>
                                         </div>
                                     </td>
+                                )}
+                                {isAdmin && (
                                     <td>
                                         <button className="add-units-button" onClick={() => handleAddBulkUnits(medication)}>
                                             Add Bulk Units
                                         </button>
                                     </td>
-                                    <td>
-                                        <button className={`view-units-button ${medication.active ? 'active' : 'inactive'}`} onClick={() => handleViewMedicationUnit(medication.id)}>
-                                            View Units
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    ) : (
-                        <p>No medications found</p>
-                    )}
+                                )}
+                                <td>
+                                    <button className={`view-units-button ${medication.active ? 'active' : 'inactive'}`} onClick={() => handleViewMedicationUnit(medication.id)}>
+                                        View Units
+                                    </button>
+                                </td>
+                                <td>
+                                    <button className={`create-intake-button ${medication.active ? 'active' : 'inactive'}`} onClick={() => handleIntakeCreation(medication.id)}>
+                                        Create intake
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
                 </div>
             )}
         </div>

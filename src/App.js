@@ -15,6 +15,7 @@ import AddPatientPage from "./components/patient/AddPatientPage";
 import PatientListPage from "./components/patient/PatientListPage";
 import PatientProfilePage from "./components/patient/PatientProfilePage";
 import IntakeListPage from "./components/intake/IntakeListPage";
+import IntakeCreationPage from "./components/intake/IntakeCreationPage";
 
 function App() {
     return (
@@ -41,6 +42,7 @@ function ContentWithNavbar() {
 
 
                     {/* Protected Routes */}
+                    <Route path="/intakes/:medicationId/add-intake" element={<ProtectedRoute element={<IntakeCreationPage/>} />}  />
                     <Route path="/intakes/list" element={<ProtectedRoute element={<IntakeListPage/>} />}  />
                     <Route path="/patients/get-by-id/:patientId" element={<ProtectedRoute element={<PatientProfilePage/>} />}  />
                     <Route path="/patients/list" element={<ProtectedRoute element={<PatientListPage/>} />}  />

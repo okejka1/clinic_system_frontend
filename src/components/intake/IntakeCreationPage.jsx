@@ -1,22 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
 
 const IntakeCreationPage = () => {
+    const { medicationId } = useParams(); // Destructure medicationId correctly from useParams()
+    const [medication, setMedication] = useState(null);
     const navigate = useNavigate();
-    const location = useLocation();
     const [clinicianId, setClinicianId] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
+    const [message, setMessage] = useState('');
 
-    const intakeData = {
-        intakeDate: new Date().toISOString().split('T')[0],  // Automatically set today's date in 'YYYY-MM-DD' format
-        patientId: new URLSearchParams(location.search).get('patientId'),
-        medicationUnitId: new URLSearchParams(location.search).get('medicationUnitId')
-    };
+    useEffect(() => {
+        const fetchMedication = async () => {
+            try {
+                const response = await ApiService.getMedicationById(medicationId);
+                setMedication(response.medication);
+            } catch (error) {
+                console.error("Error fetching medication:", error);
+                setMessage('Failed to load medication details');
+            }
+        };
+        fetchMedication();
+    }, [medicationId]);
 
     useEffect(() => {
         const fetchClinicianId = async () => {
-            const response = await ApiService.getLoggedInProfileInfo();
+            const response = await ApiService.getLoggedUserProfile();
             setClinicianId(response.user?.id);
         };
         fetchClinicianId();
@@ -24,31 +33,48 @@ const IntakeCreationPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const response = await ApiService.createIntake({ ...intakeData, clinicianId });
-            if (response.statusCode === 201) {
-                navigate('/intakes');
-            } else {
-                setErrorMessage("Failed to create intake");
-            }
-        } catch (error) {
-            setErrorMessage("Error creating intake");
-        }
+        // try {
+        //     const response = await ApiService.createIntake({ ...intakeData, clinicianId });
+        //     if (response.statusCode === 201) {
+        //         navigate('/intakes');
+        //     } else {
+        //         setErrorMessage("Failed to create intake");
+        //     }
+        // } catch (error) {
+        //     setErrorMessage("Error creating intake");
+        // }
     };
 
     return (
         <div>
             <h2>Create Intake</h2>
             {errorMessage && <p className="error">{errorMessage}</p>}
+            <h3>Medication units list</h3>
+            <div className="medication-info">
+                <h3>Medication Details</h3>
+                {/* Check if medication is not null and then render details */}
+                {medication ? (
+                    <>
+                        {medication.medicationPhotoUrl && (
+                            <img
+                                src={medication.medicationPhotoUrl}
+                                alt={medication.name}
+                                className="medication-image"
+                            />
+                        )}
+                        <p><strong>Name:</strong> {medication.name}</p>
+                        <p><strong>Dosage:</strong> {medication.dosage}</p>
+                        <p><strong>Company:</strong> {medication.company}</p>
+                        <p><strong>Description:</strong> {medication.description}</p>
+                    </>
+                ) : (
+                    <p>Loading medication details...</p> // Optional: Loading message while medication is being fetched
+                )}
+            </div>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Intake Date:</label>
-                    <input
-                        type="date"
-                        name="intakeDate"
-                        value={intakeData.intakeDate}
-                        readOnly  // Make the field read-only since it's auto-populated
-                    />
+                    <input type="date" />
                 </div>
                 <button type="submit">Submit Intake</button>
             </form>

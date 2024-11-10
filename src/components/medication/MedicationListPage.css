@@ -2,17 +2,18 @@
 .medication-list-page {
     font-family: Arial, sans-serif;
     padding: 20px;
-    max-width: 1000px;
-    margin: 0 auto;
+    width: 80%; /* Set a fixed width for the main container */
+    margin: 0 auto; /* Center the container horizontally */
     background-color: #f4f6f9;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    text-align: center; /* Center-align all child elements by default */
 }
 
+/* Heading Styles */
 h1 {
     font-size: 2rem;
     color: #333;
-    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -26,12 +27,15 @@ h1 {
     padding: 20px;
     border-radius: 8px;
     border: 1px solid #ddd;
+    justify-content: center; /* Center the form fields */
 }
 
+/* Form Group Styling */
 .form-group {
     flex: 1 1 200px;
     display: flex;
     flex-direction: column;
+    align-items: center; /* Center the form group items */
 }
 
 .form-group label {
@@ -48,6 +52,8 @@ h1 {
     border-radius: 4px;
     background-color: #f8f9fa;
     transition: border-color 0.3s;
+    width: 100%; /* Ensure inputs take up the full width of the form group */
+    box-sizing: border-box; /* Include padding in the width */
 }
 
 button[type="submit"] {
@@ -59,6 +65,7 @@ button[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    align-self: center; /* Align the submit button to the center */
 }
 
 button[type="submit"]:hover {
@@ -66,8 +73,14 @@ button[type="submit"]:hover {
 }
 
 /* Table Styles */
+.table-wrapper {
+    display: flex;
+    justify-content: center; /* Center the table inside the wrapper */
+}
+
 .medication-table {
     width: 100%;
+    max-width: 1000px; /* Set a max width for the table */
     border-collapse: collapse;
     background-color: #ffffff;
     border-radius: 8px;
@@ -100,7 +113,7 @@ button[type="submit"]:hover {
     object-fit: cover;
 }
 
-/* Action Button Styles (Scoped) */
+/* Action Button Styles */
 .action-buttons button {
     padding: 8px 12px;
     font-size: 0.9rem;
@@ -131,16 +144,11 @@ button[type="submit"]:hover {
     background-color: #dc3545; /* Red for inactive */
 }
 
-/* Error Message Styles */
-.error-message {
-    color: #dc3545;
-    font-weight: bold;
-}
-/* Action Button Styles (Scoped) */
+
+
+/* Action Button Styles */
 .action-buttons {
     display: flex;
     flex-direction: column; /* Stack buttons vertically */
     gap: 10px; /* Space between buttons */
 }
-
-

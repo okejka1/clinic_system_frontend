@@ -47,7 +47,7 @@ export default class ApiService {
         return response.data
     }
 
-    static async getUserProfile() {
+    static async getLoggedUserProfile() {
         const response = await axios.get(`${this.BASE_URL}/users/get-logged-in-profile-info`, {
             headers: this.getHeader()
         })
@@ -228,6 +228,7 @@ export default class ApiService {
 
 
 
+
     /**AUTHENTICATION CHECKER */
     static logout() {
         localStorage.removeItem('token')
@@ -247,6 +248,10 @@ export default class ApiService {
     static isClinician() {
         const role = localStorage.getItem('role')
         return role === 'CLINICIAN'
+    }
+
+    static async getLoggedInProfileInfo() {
+
     }
 }
 // export default new ApiService();
