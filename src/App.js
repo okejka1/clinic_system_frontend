@@ -16,6 +16,7 @@ import PatientListPage from "./components/patient/PatientListPage";
 import PatientProfilePage from "./components/patient/PatientProfilePage";
 import IntakeListPage from "./components/intake/IntakeListPage";
 import IntakeCreationPage from "./components/intake/IntakeCreationPage";
+import UserProfileInfo from "./components/auth/UserProfileInfo";
 
 function App() {
     return (
@@ -49,6 +50,8 @@ function ContentWithNavbar() {
                     <Route path="/patients/add-patient" element={<ProtectedRoute element={<AddPatientPage/>} />}  />
                     <Route path="/list-of-medications" element={<ProtectedRoute element={<MediationListPage/>} />}  />
                     <Route path="/medications/:medicationId/list" element={<ProtectedRoute element={<MedicationUnitListPage/>} />}  />
+                    <Route path="/user/info" element={<ProtectedRoute element={<UserProfileInfo/>} />}  />
+
 
 
                     {/* Admin Routes */}

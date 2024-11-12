@@ -181,6 +181,16 @@ export default class ApiService {
         return response.data
     }
 
+    static async updatePatientMedicalHistory(patientId, medicalHistory) {
+        const response = await axios.put(`${this.BASE_URL}/patients/update-medical-history/${patientId}`,
+            { medicalHistory },
+            {
+                headers: this.getHeader()
+            }
+        );
+        return response.data;
+    }
+
     /* INTAKE SERVICE */
 
     static async getAllIntakes(
@@ -221,6 +231,14 @@ export default class ApiService {
         });
         return response.data;
     }
+
+    static async getIntakesByClinician(clinicianId) {
+        const response = await axios.get(`${this.BASE_URL}/intakes/user/${clinicianId}`, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
+
 
 
 

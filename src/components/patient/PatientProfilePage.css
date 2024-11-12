@@ -1,0 +1,19 @@
+/* Button Column - Arrange buttons in a column */
+.button-column {
+    display: flex;
+    flex-direction: column; /* Arrange buttons vertically */
+    align-items: center; /* Center buttons horizontally */
+    gap: 10px; /* Space between buttons */
+    margin-top: 15px;
+}
+
+/* Specific Button Sizes */
+.update-button, .cancel-button, .edit-button {
+    width: 20%;
+    padding: 5px;
+    font-size: 13px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

@@ -17,6 +17,9 @@ const MedicationListPage = () => {
         isActive: ''
     });
     const [isAdmin, setIsAdmin] = useState(false);
+    const SAFE_THRESHOLD = 10; // Define the threshold for safe units
+
+
 
     const fetchMedications = async () => {
         setLoading(true);
@@ -141,47 +144,59 @@ const MedicationListPage = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {medications.map((medication) => (
-                            <tr key={medication.id}>
-                                <td>{medication.id}</td>
-                                <td>
-                                    <img src={medication.medicationPhotoUrl || 'default-image-url'} alt={medication.name} className="medication-photo" />
-                                </td>
-                                <td>{medication.name}</td>
-                                <td>{medication.dosage}</td>
-                                <td>{medication.company}</td>
-                                <td>{medication.active ? 'Active' : 'Inactive'}</td>
-                                <td>{medication.description}</td>
-                                <td>{medication.unitCount}</td>
-                                {isAdmin && (
+                        {medications.map((medication) => {
+                            const isLowStock = medication.unitCount < SAFE_THRESHOLD;
+                            return (
+                                <tr key={medication.id}>
+                                    <td>{medication.id}</td>
                                     <td>
-                                        <div className="action-buttons">
-                                            <button className="deactivate" onClick={() => handleToggleActiveStatus(medication.id, medication.active)}>
-                                                {medication.active ? 'Deactivate' : 'Reactivate'}
-                                            </button>
-                                            <button className="delete" onClick={() => handleDeleteMedication(medication.id)}>Delete</button>
-                                        </div>
+                                        <img src={medication.medicationPhotoUrl || 'default-image-url'}
+                                             alt={medication.name} className="medication-photo"/>
                                     </td>
-                                )}
-                                {isAdmin && (
+                                    <td>{medication.name}</td>
+                                    <td>{medication.dosage}</td>
+                                    <td>{medication.company}</td>
+                                    <td>{medication.active ? 'Active' : 'Inactive'}</td>
+                                    <td>{medication.description}</td>
+                                    <td className={isLowStock ? 'low-stock' : ''}>{medication.unitCount}</td>
+                                    {isAdmin && (
+                                        <td>
+                                            <div className="action-buttons">
+                                                <button className="deactivate"
+                                                        onClick={() => handleToggleActiveStatus(medication.id, medication.active)}>
+                                                    {medication.active ? 'Deactivate' : 'Reactivate'}
+                                                </button>
+                                                <button className="delete"
+                                                        onClick={() => handleDeleteMedication(medication.id)}>Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    )}
+                                    {isAdmin && (
+                                        <td>
+                                            <button className="add-units-button"
+                                                    onClick={() => handleAddBulkUnits(medication)}>
+                                                Add Bulk Units
+                                            </button>
+                                        </td>
+                                    )}
                                     <td>
-                                        <button className="add-units-button" onClick={() => handleAddBulkUnits(medication)}>
-                                            Add Bulk Units
+                                        <button
+                                            className={`view-units-button ${medication.active ? 'active' : 'inactive'}`}
+                                            onClick={() => handleViewMedicationUnit(medication.id)}>
+                                            View Units
                                         </button>
                                     </td>
-                                )}
-                                <td>
-                                    <button className={`view-units-button ${medication.active ? 'active' : 'inactive'}`} onClick={() => handleViewMedicationUnit(medication.id)}>
-                                        View Units
-                                    </button>
-                                </td>
-                                <td>
-                                    <button className={`create-intake-button ${medication.active ? 'active' : 'inactive'}`} onClick={() => handleIntakeCreation(medication.id)}>
-                                        Create intake
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
+                                    <td>
+                                        <button
+                                            className={`create-intake-button ${medication.active ? 'active' : 'inactive'}`}
+                                            onClick={() => handleIntakeCreation(medication.id)}>
+                                            Create intake
+                                        </button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                         </tbody>
                     </table>
                 </div>

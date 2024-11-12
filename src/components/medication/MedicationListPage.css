@@ -138,6 +138,15 @@ button[type="submit"]:hover {
     background-color: #dc3545; /* Red for inactive */
 }
 
+.low-stock {
+    background-color: #f8d7da;  /* Light red background for low stock */
+    color: #721c24;  /* Dark red text color */
+}
+
+.low-stock td {
+    font-weight: bold;
+}
+
 
 
 /* Action Button Styles */
