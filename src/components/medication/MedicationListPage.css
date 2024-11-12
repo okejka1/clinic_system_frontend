@@ -10,12 +10,6 @@
     text-align: center; /* Center-align all child elements by default */
 }
 
-/* Heading Styles */
-h1 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
-}
 
 /* Filter Form Styles */
 .filter-form {

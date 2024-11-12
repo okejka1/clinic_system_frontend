@@ -39,7 +39,7 @@ const MedicationUnitListPage = () => {
     }, [medicationId]); // Add dependency on medicationId
 
     const handleDeleteMedicationUnit = async (unitId) => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this user?");
+        const confirmDelete = window.confirm("Are you sure you want to delete this medication unit?");
         if (confirmDelete) {
             try {
                 await ApiService.deleteMedicationUnit(medicationId, unitId);

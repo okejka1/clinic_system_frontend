@@ -50,7 +50,7 @@ function PatientListPage() {
 
     return (
         <div className="patients-list">
-            <h1>List of Patients</h1>
+            <h2>List of Patients</h2>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             <input
                 type="text"

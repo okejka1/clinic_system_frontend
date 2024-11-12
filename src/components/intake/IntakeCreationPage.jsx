@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
+import './IntakeCreationPage.css';
 
 const IntakeCreationPage = () => {
-    const { medicationId } = useParams(); // Destructure medicationId correctly from useParams()
+    const { medicationId } = useParams();
     const [medication, setMedication] = useState(null);
     const [medicationUnits, setMedicationUnits] = useState([]);
     const [patients, setPatients] = useState([]);
-
+    const [searchTerm, setSearchTerm] = useState('');
     const [clinicianId, setClinicianId] = useState(null);
+    const [selectedMedicationUnit, setSelectedMedicationUnit] = useState(null);
+    const [selectedPatient, setSelectedPatient] = useState(null);
     const [errorMessage, setErrorMessage] = useState('');
-    const [succesMessage, setSuccessMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
         const fetchMedication = async () => {
@@ -18,7 +21,6 @@ const IntakeCreationPage = () => {
                 const response = await ApiService.getMedicationById(medicationId);
                 setMedication(response.medication);
             } catch (error) {
-                console.error("Error fetching medication:", error);
                 setErrorMessage('Failed to load medication details');
             }
         };
@@ -33,29 +35,74 @@ const IntakeCreationPage = () => {
         fetchClinicianId();
     }, []);
 
+    const fetchMedicationUnits = async () => {
+        try {
+            const response = await ApiService.getMedicationUnits(medicationId);
+            const availableUnits = response.medicationUnitList.filter(unit => unit.status === 'Available');
+            setMedicationUnits(availableUnits);
+        } catch (error) {
+            setErrorMessage('Failed to load medication units.');
+        }
+    };
+
+    useEffect(() => {
+        fetchMedicationUnits();
+    }, [medicationId]);
+
+    // Fetch patients with client-side filtering
+    const fetchPatients = async () => {
+        try {
+            const response = await ApiService.getAllPatients(); // Fetch all patients
+            const allPatients = response.patientList || [];
+
+            // Client-side filtering for the search term
+            const filteredPatients = allPatients.filter((patient) =>
+                `${patient.firstName} ${patient.lastName}`.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            setPatients(filteredPatients); // Set the filtered patients list
+        } catch (error) {
+            setErrorMessage(error.response ? error.response.data.message : 'Failed to load patients.');
+        }
+    };
+
+    useEffect(() => {
+        fetchPatients(); // Call fetchPatients whenever searchTerm changes
+    }, [searchTerm]);
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value); // Update searchTerm state
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // try {
-        //     const response = await ApiService.createIntake({ ...intakeData, clinicianId });
-        //     if (response.statusCode === 201) {
-        //         navigate('/intakes');
-        //     } else {
-        //         setErrorMessage("Failed to create intake");
-        //     }
-        // } catch (error) {
-        //     setErrorMessage("Error creating intake");
-        // }
+        if (!selectedMedicationUnit || !selectedPatient) {
+            setErrorMessage('Please select both a medication unit and a patient.');
+            return;
+        }
+
+        try {
+            await ApiService.createIntake(medicationId, {
+                clinicianId,
+                patientId: selectedPatient,
+                medicationUnitId: selectedMedicationUnit,
+                intakeDate: new Date().toISOString()
+            });
+            setSuccessMessage('Intake created successfully.');
+            setErrorMessage('');
+        } catch (error) {
+            setErrorMessage('Failed to create intake.');
+        }
     };
 
     return (
-        <div>
+        <div className="intake-creation-container">
             <h2>Create Intake</h2>
-            {errorMessage && <p className="error">{errorMessage}</p>}
-            <h3>Medication units list</h3>
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            {successMessage && <p className="success-message">{successMessage}</p>}
+
             <div className="medication-info">
                 <h3>Medication Details</h3>
-                {/* Check if medication is not null and then render details */}
                 {medication ? (
                     <>
                         {medication.medicationPhotoUrl && (
@@ -71,15 +118,57 @@ const IntakeCreationPage = () => {
                         <p><strong>Description:</strong> {medication.description}</p>
                     </>
                 ) : (
-                    <p>Loading medication details...</p> // Optional: Loading message while medication is being fetched
+                    <p>Loading medication details...</p>
                 )}
             </div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Intake Date:</label>
-                    <input type="date" />
+
+            <form onSubmit={handleSubmit} className="intake-form">
+                <div className="form-group">
+                    <label>Select Medication Unit:</label>
+                    <select
+                        value={selectedMedicationUnit || ''}
+                        onChange={(e) => setSelectedMedicationUnit(e.target.value)}
+                        className="unit-select"
+                    >
+                        <option value="">Select a unit</option>
+                        {medicationUnits.map((unit) => (
+                            <option key={unit.id} value={unit.id}>
+                                {`Unit ID: ${unit.id} | Expiry Date: ${unit.expiryDate}`}
+                            </option>
+                        ))}
+                    </select>
                 </div>
-                <button type="submit">Submit Intake</button>
+
+                <div className="form-group">
+                    <label>Search Patient:</label>
+                    <input
+                        type="text"
+                        placeholder="Search by name"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        className="search-input"
+                    />
+                </div>
+
+                <div className="patient-list">
+                    <h4>Select Patient:</h4>
+                    {patients.length > 0 ? (
+                        patients.map((patient) => (
+                            <div
+                                key={patient.id}
+                                onClick={() => setSelectedPatient(patient.id)}
+                                className={`patient-item ${selectedPatient === patient.id ? 'selected' : ''}`}
+                            >
+                                <p>{`${patient.firstName} ${patient.lastName}`}</p>
+                                <p>DOB: {patient.birthDate}</p>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No patients found.</p>
+                    )}
+                </div>
+
+                <button type="submit" className="submit-button">Submit Intake</button>
             </form>
         </div>
     );

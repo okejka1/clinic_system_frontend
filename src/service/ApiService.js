@@ -166,6 +166,7 @@ export default class ApiService {
         return response.data;
     }
 
+
     static async deletePatient(userId) {
         const response = await axios.delete(`${this.BASE_URL}/patients/delete/${userId}`, {
             headers: this.getHeader()
@@ -207,8 +208,8 @@ export default class ApiService {
 
 
 
-    static async createIntake(intakeData) {
-        const response = await axios.post(`${this.BASE_URL}/intakes/add`, intakeData, {
+    static async createIntake(medicationId, intakeData) {
+        const response = await axios.post(`${this.BASE_URL}/intakes/add/${medicationId}`, intakeData, {
             headers: this.getHeader()
         });
         return response.data;

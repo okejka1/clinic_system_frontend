@@ -91,7 +91,7 @@ const MedicationListPage = () => {
 
     return (
         <div className="medication-list-page">
-            <h1>Medication List</h1>
+            <h2>Medication List</h2>
 
             <form className="filter-form" onSubmit={handleFilterSubmit}>
                 <div className="form-group">
