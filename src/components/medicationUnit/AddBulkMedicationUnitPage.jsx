@@ -10,7 +10,7 @@
         const { medicationId } = useParams();
         const [medication, setMedication] = useState(null);
         const [expiryDate, setExpiryDate] = useState(null); // Initialize with null
-        const [status, setStatus] = useState('Available');
+        const [status, setStatus] = useState('available');
         const [quantity, setQuantity] = useState(0);
         const [message, setMessage] = useState('');
         const [errorMessage, setErrorMessage] = useState('');

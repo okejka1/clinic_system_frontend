@@ -83,7 +83,7 @@ function PatientListPage() {
                             <td>{patient.phoneNumber}</td>
                             <td>{patient.medicalHistory}</td>
                             <td>
-                                <button onClick={() => handleDeletePatient(patient.id)}>Delete</button>
+                                <button className='delete' onClick={() => handleDeletePatient(patient.id)}>Delete</button>
                             </td>
                             <td>
                                 <button onClick={() => handleViewPatientProfile(patient.id)}>Patient's profile</button>
