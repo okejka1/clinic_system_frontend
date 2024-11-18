@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
 import "../styles.css";
 import "./MedicationListPage.css";
-import "../../service/guard";
 
 const MedicationListPage = () => {
     const navigate = useNavigate();
@@ -18,7 +17,7 @@ const MedicationListPage = () => {
     });
     const [isAdmin, setIsAdmin] = useState(false);
 
-    const SAFE_THRESHOLD = 10; // Define the threshold for safe units
+    const SAFE_THRESHOLD = 10;
 
     const fetchMedications = async () => {
         setLoading(true);
@@ -27,24 +26,21 @@ const MedicationListPage = () => {
             const { name, dosage, company, isActive } = filters;
             const isActiveBool = isActive === 'true' ? true : isActive === 'false' ? false : null;
 
-            // Fetch medications along with unit details
             const response = await ApiService.getFilteredMedications(name, dosage, company, isActiveBool);
             const medications = response.medicationList || [];
 
-            // Map medications to calculate only "Available" units
-            const medicationsWithAvailableUnits = await Promise.all(medications.map(async (medication) => {
-                // Fetch units for each medication by its ID if not directly available in medication.units
-                const unitsResponse = await ApiService.getMedicationUnits(medication.id);
-                const units = unitsResponse.medicationUnitList || [];
+            const medicationsWithAvailableUnits = await Promise.all(
+                medications.map(async (medication) => {
+                    const unitsResponse = await ApiService.getMedicationUnits(medication.id);
+                    const units = unitsResponse.medicationUnitList || [];
+                    const availableUnitCount = units.filter(unit => unit.status === "available").length;
 
-                // Filter for "Available" units
-                const availableUnitCount = units.filter(unit => unit.status === "Available").length;
-
-                return {
-                    ...medication,
-                    unitCount: availableUnitCount  // Update to show only available units
-                };
-            }));
+                    return {
+                        ...medication,
+                        unitCount: availableUnitCount
+                    };
+                })
+            );
 
             setMedications(medicationsWithAvailableUnits);
         } catch (error) {
@@ -54,7 +50,6 @@ const MedicationListPage = () => {
             setLoading(false);
         }
     };
-
 
     useEffect(() => {
         setIsAdmin(ApiService.isAdmin());
@@ -107,7 +102,7 @@ const MedicationListPage = () => {
     };
 
     const handleIntakeCreation = (medicationId) => {
-        navigate(`/intakes/${medicationId}/add-intake`)
+        navigate(`/intakes/${medicationId}/add-intake`);
     };
 
     return (
@@ -163,46 +158,61 @@ const MedicationListPage = () => {
                         </thead>
                         <tbody>
                         {medications.map((medication) => {
-                            // Check if the medication's available unit count is below the safe threshold
+                            const isActive = medication.active;
                             const isLowStock = medication.unitCount < SAFE_THRESHOLD;
 
                             return (
                                 <tr key={medication.id}>
                                     <td>{medication.id}</td>
                                     <td>
-                                        <img src={medication.medicationPhotoUrl || 'default-image-url'} alt={medication.name} className="medication-photo" />
+                                        <img src={medication.medicationPhotoUrl || 'default-image-url'}
+                                             alt={medication.name} className="medication-photo"/>
                                     </td>
                                     <td>{medication.name}</td>
                                     <td>{medication.dosage}</td>
                                     <td>{medication.company}</td>
-                                    <td>{medication.active ? 'Active' : 'Inactive'}</td>
+                                    <td>{isActive ? 'Active' : 'Inactive'}</td>
                                     <td>{medication.description}</td>
-                                    <td className={isLowStock ? 'low-stock' : ''}>{medication.unitCount}</td> {/* Shows only "Available" units */}
+                                    <td className={isLowStock ? 'low-stock' : ''}>{medication.unitCount}</td>
                                     {isAdmin && (
                                         <td>
                                             <div className="action-buttons">
-                                                <button className="deactivate" onClick={() => handleToggleActiveStatus(medication.id, medication.active)}>
-                                                    {medication.active ? 'Deactivate' : 'Reactivate'}
+                                                <button className="deactivate"
+                                                        onClick={() => handleToggleActiveStatus(medication.id, isActive)}>
+                                                    {isActive ? 'Deactivate' : 'Reactivate'}
                                                 </button>
-                                                <button className="delete" onClick={() => handleDeleteMedication(medication.id)}>Delete</button>
+                                                <button className="delete"
+                                                        onClick={() => handleDeleteMedication(medication.id)}>Delete
+                                                </button>
                                             </div>
                                         </td>
                                     )}
                                     {isAdmin && (
                                         <td>
-                                            <button className="add-units-button" onClick={() => handleAddBulkUnits(medication)}>
+                                            <button
+                                                className={`add-units-button ${isActive ? 'active' : 'inactive'}`}
+                                                disabled={!isActive}
+                                                onClick={() => handleAddBulkUnits(medication)}
+                                            >
                                                 Add Bulk Units
                                             </button>
                                         </td>
                                     )}
                                     <td>
-                                        <button className={medication.active ? 'active' : 'inactive'} onClick={() => handleViewMedicationUnit(medication.id)}>
+                                        <button
+                                            className="view-units-button active"
+                                            onClick={() => handleViewMedicationUnit(medication.id)}
+                                        >
                                             View Units
                                         </button>
                                     </td>
                                     <td>
-                                        <button className={medication.active ? 'active' : 'inactive'} onClick={() => handleIntakeCreation(medication.id)}>
-                                            Create intake
+                                        <button
+                                            className={`create-intake-button ${isActive ? 'active' : 'inactive'}`}
+                                            disabled={!isActive}
+                                            onClick={() => handleIntakeCreation(medication.id)}
+                                        >
+                                            Create Intake
                                         </button>
                                     </td>
                                 </tr>

@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ApiService from '../../service/ApiService';
+import './IntakeListPage.css'
+import '../styles.css'
 
 const IntakeListPage = () => {
     const [intakes, setIntakes] = useState([]);

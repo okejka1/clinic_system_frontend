@@ -38,7 +38,7 @@ const IntakeCreationPage = () => {
     const fetchMedicationUnits = async () => {
         try {
             const response = await ApiService.getMedicationUnits(medicationId);
-            const availableUnits = response.medicationUnitList.filter(unit => unit.status === 'Available');
+            const availableUnits = response.medicationUnitList.filter(unit => unit.status === 'available');
             setMedicationUnits(availableUnits);
         } catch (error) {
             setErrorMessage('Failed to load medication units.');

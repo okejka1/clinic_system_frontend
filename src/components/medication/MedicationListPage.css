@@ -147,11 +147,45 @@ button[type="submit"]:hover {
     font-weight: bold;
 }
 
+/* Button Styles */
+.add-units-button,
+.create-intake-button,
+.view-units-button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    border: none;
+    color: #fff;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.add-units-button.active,
+.create-intake-button.active,
+.view-units-button.active {
+    background-color: #007bff; /* Blue */
+}
+
+.add-units-button.inactive,
+.create-intake-button.inactive {
+    background-color: #dc3545; /* Red */
+    cursor: not-allowed;
+}
+
+.view-units-button {
+    background-color: #007bff;
+    cursor: pointer;
+}
+
+.add-units-button:disabled,
+.create-intake-button:disabled {
+    opacity: 0.7; /* Make disabled buttons semi-transparent */
+}
 
 
 /* Action Button Styles */
 .action-buttons {
     display: flex;
     flex-direction: column; /* Stack buttons vertically */
-    gap: 10px; /* Space between buttons */
+    gap: 15px; /* Space between buttons */
 }
