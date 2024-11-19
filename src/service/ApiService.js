@@ -2,7 +2,7 @@ import axios from "axios"
 
 export default class ApiService {
 
-    static BASE_URL = "https://54.196.217.57"
+    static BASE_URL = "https://clinic-management-thesis.okejkanaklejka.pl"
 
     static getHeader() {
         const token = localStorage.getItem("token");
