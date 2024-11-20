@@ -159,7 +159,7 @@ export default class ApiService {
     }
 
     static async getAllPatients(name = '') {
-        const url = name ? `${this.BASE_URL}/users/all?name=${name}` : `${this.BASE_URL}/patients/all`;
+        const url = name ? `${this.BASE_URL}/patients/all?name=${name}` : `${this.BASE_URL}/patients/all`;
         const response = await axios.get(url, {
             headers: this.getHeader()
         });
