@@ -48,7 +48,7 @@ function UserListPage() {
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             <input
                 type="text"
-                placeholder="Search by name"
+                placeholder="Search by firstname or lastname"
                 value={searchTerm}
                 onChange={handleSearchChange}
                 className="search-input"
@@ -74,7 +74,7 @@ function UserListPage() {
                             <td>{user.email}</td>
                             <td>{user.role}</td>
                             <td>
-                                <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
+                                <button className="delete" onClick={() => handleDeleteUser(user.id)}>Delete</button>
                             </td>
                         </tr>
                     ))

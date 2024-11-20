@@ -1,98 +1,62 @@
-/* Main Container */
-.add-bulk-medication-unit-page {
+.medication-list-page {
     font-family: Arial, sans-serif;
     padding: 20px;
-    max-width: 800px;
+    width: 90%;
     margin: 0 auto;
     background-color: #f4f6f9;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Header */
-.add-bulk-medication-unit-page h2 {
-    font-size: 1.8rem;
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* Medication Info Section */
 .medication-info {
-    background-color: #ffffff;
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
     margin-bottom: 20px;
-}
-
-.medication-info h3 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.medication-info p {
-    font-size: 1rem;
-    color: #555;
-    margin: 5px 0;
-}
-
-/* Medication Image */
-.medication-image {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-/* Medication Units Table */
-.medication-unit-table {
     width: 100%;
-    overflow-x: auto;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.medication-unit-table table {
+.medication-image {
+    max-width: 200px; /* Set a larger maximum width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Smooth edges */
+    margin: 10px 0; /* Add some spacing around the image */
+
+}
+
+
+.filter-form {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group select {
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.table-wrapper {
+    margin-top: 20px;
+}
+
+.medication-table {
     width: 100%;
     border-collapse: collapse;
+    text-align: left;
 }
 
-.medication-unit-table th,
-.medication-unit-table td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #e0e0e0;
-    font-size: 0.9rem;
-    color: #333;
+.medication-table th,
+.medication-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
 }
 
-.medication-unit-table th {
-    font-weight: bold;
+.medication-table th {
     background-color: #f8f9fa;
+    font-weight: bold;
 }
 
-.medication-unit-table tbody tr:nth-child(even) {
-    background-color: #f4f6f9;
-}
-
-.medication-unit-table p {
-    text-align: center;
-    font-size: 1rem;
-    color: #555;
-    margin: 15px 0;
-}
-
-
-.error-message {
-    color: white;
-    background-color: #dc3545;
-}
-
-.success-message {
-    color: #ffffff;
-    background-color: #28a745;
-}

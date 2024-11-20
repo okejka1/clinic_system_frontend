@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import ApiService from '../../service/ApiService';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import ApiService from "../../service/ApiService";
 import "../styles.css";
-import "./MedicationUnitListPage.css"
+import "./MedicationUnitListPage.css";
 
 const MedicationUnitListPage = () => {
     const { medicationId } = useParams();
     const [medication, setMedication] = useState(null);
     const [medicationUnits, setMedicationUnits] = useState([]);
-    const [message, setMessage] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    const [filterStatus, setFilterStatus] = useState(""); // For dropdown filter
+    const [message, setMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         const fetchMedication = async () => {
@@ -18,44 +19,47 @@ const MedicationUnitListPage = () => {
                 setMedication(response.medication);
             } catch (error) {
                 console.error("Error fetching medication:", error);
-                setMessage('Failed to load medication details');
+                setMessage("Failed to load medication details");
             }
         };
         fetchMedication();
     }, [medicationId]);
 
+    const fetchMedicationsUnits = async () => {
+        try {
+            const response = await ApiService.getMedicationUnits(medicationId, filterStatus);
+            const medicationUnits = response.medicationUnitList || [];
+            setMedicationUnits(medicationUnits);
+        } catch (error) {
+            console.error("Error fetching medication units:", error);
+            setErrorMessage("Failed to fetch medication units");
+        }
+    };
+
     useEffect(() => {
-        const fetchMedicationsUnits = async () => {
-            try {
-                const response = await ApiService.getMedicationUnits(medicationId);
-                const medicationUnits = response.medicationUnitList || []; // Ensure this matches the API response
-                setMedicationUnits(medicationUnits);
-            } catch (error) {
-                console.error("Error fetching medication units:", error);
-                setErrorMessage('Failed to fetch medication units');
-            }
-        };
-        fetchMedicationsUnits(); // Ensure the function is invoked here
-    }, [medicationId]); // Add dependency on medicationId
+        fetchMedicationsUnits();
+    }, [medicationId, filterStatus]);
 
     const handleDeleteMedicationUnit = async (unitId) => {
         const confirmDelete = window.confirm("Are you sure you want to delete this medication unit?");
         if (confirmDelete) {
             try {
                 await ApiService.deleteMedicationUnit(medicationId, unitId);
-                setMedicationUnits((prevUnits) => prevUnits.filter(unit => unit.id !== unitId));
-                setMessage('Medication unit deleted successfully');
+                setMedicationUnits((prevUnits) => prevUnits.filter((unit) => unit.id !== unitId));
+                setMessage("Medication unit deleted successfully");
             } catch (error) {
                 console.error("Error deleting medication unit:", error);
-                setErrorMessage('Failed to delete medication unit');
-                setTimeout(() => setErrorMessage(''), 2000);
+                setErrorMessage("Failed to delete medication unit");
+                setTimeout(() => setErrorMessage(""), 2000);
             }
         }
     };
 
     return (
-        <div className="add-bulk-medication-unit-page">
-            <h2>Medication units list</h2>
+        <div className="medication-list-page">
+            <h2>Medication Units List</h2>
+
+            {/* Medication Info */}
             {medication ? (
                 <div className="medication-info">
                     <h3>Medication Details</h3>
@@ -66,28 +70,52 @@ const MedicationUnitListPage = () => {
                             className="medication-image"
                         />
                     )}
-                    <p><strong>Name:</strong> {medication.name}</p>
-                    <p><strong>Dosage:</strong> {medication.dosage}</p>
-                    <p><strong>Company:</strong> {medication.company}</p>
-                    <p><strong>Description:</strong> {medication.description}</p>
+                    <p>
+                        <strong>Name:</strong> {medication.name}
+                    </p>
+                    <p>
+                        <strong>Dosage:</strong> {medication.dosage}
+                    </p>
+                    <p>
+                        <strong>Company:</strong> {medication.company}
+                    </p>
+                    <p>
+                        <strong>Description:</strong> {medication.description}
+                    </p>
                 </div>
             ) : (
                 <p>Loading medication details...</p>
             )}
 
+            {/* Filter Dropdown */}
+            <form className="filter-form">
+                <div className="form-group">
+                    <label>Status:</label>
+                    <select
+                        name="filterStatus"
+                        value={filterStatus}
+                        onChange={(e) => setFilterStatus(e.target.value)}
+                    >
+                        <option value="">all</option>
+                        <option value="available">available</option>
+                        <option value="given">given</option>
+                    </select>
+                </div>
+            </form>
+
             {/* Medication Units Table */}
             {errorMessage ? (
                 <p className="error-message">{errorMessage}</p>
             ) : (
-                <div className="medication-unit-table">
+                <div className="table-wrapper">
                     {medicationUnits.length > 0 ? (
-                        <table>
+                        <table className="medication-table">
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Expiry date</th>
+                                <th>Expiry Date</th>
                                 <th>Status</th>
-                                <th>Delete</th>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -97,9 +125,12 @@ const MedicationUnitListPage = () => {
                                     <td>{medicationUnit.expiryDate}</td>
                                     <td>{medicationUnit.status}</td>
                                     <td>
-                                        <div className="delete-button">
-                                            <button className="delete"
-                                                    onClick={() => handleDeleteMedicationUnit(medicationUnit.id)}>Delete
+                                        <div className="action-buttons">
+                                            <button
+                                                className="delete"
+                                                onClick={() => handleDeleteMedicationUnit(medicationUnit.id)}
+                                            >
+                                                Delete
                                             </button>
                                         </div>
                                     </td>

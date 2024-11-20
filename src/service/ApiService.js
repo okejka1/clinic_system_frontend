@@ -131,13 +131,16 @@ export default class ApiService {
         }
     }
 
-    static async getMedicationUnits(medicationId){
-        const response = await axios.get(`${this.BASE_URL}/medication-units/medication/${medicationId}/units`,
+    static async getMedicationUnits(medicationId, status =''){
+        const response = await axios.get(`${this.BASE_URL}/medication-units/medication/${medicationId}/units${status ? `?status=${status}` : ''}`,
         {
             headers: this.getHeader()
         });
         return response.data;
+
     }
+
+
 
     static async deleteMedicationUnit(medicationId, medicationUnitId){
         const response = await axios.delete(`${this.BASE_URL}/medication-units/medication/${medicationId}/units/${medicationUnitId}`,

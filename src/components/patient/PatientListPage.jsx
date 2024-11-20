@@ -54,7 +54,7 @@ function PatientListPage() {
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             <input
                 type="text"
-                placeholder="Search by name"
+                placeholder="Search by firstname or lastname"
                 value={searchTerm}
                 onChange={handleSearchChange}
                 className="search-input"
