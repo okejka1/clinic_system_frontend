@@ -83,12 +83,15 @@ const MedicationListPage = () => {
     };
 
     const handleDeleteMedication = async (medicationId) => {
-        try {
-            await ApiService.deleteMedication(medicationId);
-            fetchMedications();
-        } catch (error) {
-            console.error("Error deleting medication:", error);
-            setError('Failed to delete medication');
+        const confirmDelete = window.confirm("Are you sure you want to delete this medication type?");
+        if (confirmDelete) {
+            try {
+                await ApiService.deleteMedication(medicationId);
+                fetchMedications();
+            } catch (error) {
+                console.error("Error deleting medication:", error);
+                setError('Failed to delete medication');
+            }
         }
     };
 
@@ -225,7 +228,7 @@ const MedicationListPage = () => {
                                                         onClick={() => handleToggleActiveStatus(medication.id, isActive)}>
                                                     {isActive ? 'Deactivate' : 'Reactivate'}
                                                 </button>
-                                                <button className="delete"
+                                                <button className={`delete ${isActive ? 'active' : 'inactive'}`}
                                                         disabled={!isActive}
                                                         onClick={() => handleDeleteMedication(medication.id)}>Delete
                                                 </button>
