@@ -1,7 +1,7 @@
-    import React, { useState } from 'react';
+import React, { useState } from 'react';
 import ApiService from '../../service/ApiService'; // Assuming ApiService handles API calls
 import './AddMedicationPage.css';
-import "../styles.css"
+import "../styles.css";
 
 const AddingMedicationPage = () => {
     const [medicationData, setMedicationData] = useState({
@@ -9,6 +9,7 @@ const AddingMedicationPage = () => {
         dosage: '',
         company: '',
         description: '',
+        criticalUnitThreshold: '', // New field for criticalUnitThreshold
     });
     const [photo, setPhoto] = useState(null);
     const [message, setMessage] = useState('');
@@ -36,6 +37,9 @@ const AddingMedicationPage = () => {
         if (!medicationData.name.trim()) newErrors.name = 'Medication name is required';
         if (!medicationData.dosage.trim()) newErrors.dosage = 'Dosage is required';
         if (!medicationData.company.trim()) newErrors.company = 'Company name is required';
+        if (!medicationData.criticalUnitThreshold || medicationData.criticalUnitThreshold <= 0) {
+            newErrors.criticalUnitThreshold = 'Critical unit threshold must be greater than 0';
+        }
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -54,16 +58,18 @@ const AddingMedicationPage = () => {
             formData.append('dosage', medicationData.dosage);
             formData.append('company', medicationData.company);
             formData.append('description', medicationData.description);
+            formData.append('criticalUnitThreshold', medicationData.criticalUnitThreshold); // Ensure this is added
             if (photo) formData.append('photo', photo);
 
             const response = await ApiService.addMedication(formData);
             setMessage(response.message || 'Medication added successfully');
-            setMedicationData({ name: '', dosage: '', company: '', description: '' }); // Reset form
+            setMedicationData({ name: '', dosage: '', company: '', description: '', criticalUnitThreshold: '' }); // Reset form
             setPhoto(null);
         } catch (error) {
             setMessage(error.response?.data?.message || 'Error adding medication');
         }
     };
+
 
     return (
         <div className="add-medication-page">
@@ -109,6 +115,20 @@ const AddingMedicationPage = () => {
                 </div>
 
                 <div className="form-group">
+                    <label>Critical Unit Threshold:</label>
+                    <input
+                        type="number"
+                        name="criticalUnitThreshold"
+                        value={medicationData.criticalUnitThreshold}
+                        onChange={handleChange}
+                        className={errors.criticalUnitThreshold ? 'error' : ''}
+                        required
+                        min="1" // Ensuring threshold is a positive number
+                    />
+                    {errors.criticalUnitThreshold && <p className="error-message">{errors.criticalUnitThreshold}</p>}
+                </div>
+
+                <div className="form-group">
                     <label>Description:</label>
                     <textarea
                         name="description"
@@ -125,7 +145,7 @@ const AddingMedicationPage = () => {
                 <button type="submit">Add Medication</button>
             </form>
 
-            {message && <p className={errors ? 'error-message' : 'success-message'}>{message}</p>}
+            {message && <p className={message.includes('Error') ? 'error-message' : 'success-message'}>{message}</p>}
         </div>
     );
 };

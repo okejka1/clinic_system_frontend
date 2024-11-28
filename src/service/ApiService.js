@@ -65,6 +65,17 @@ export default class ApiService {
         });
         return result.data;
     }
+    static async changeCriticalUnitThreshold(id, criticalUnitThreshold) {
+        const result = await axios.put(`${this.BASE_URL}/medications/critical-threshold/${id}`,  {},{
+            headers: this.getHeader(),
+            params: {
+                criticalUnitThreshold: criticalUnitThreshold
+            }
+        });
+        return result.data;
+    }
+
+
     static async deactivateMedication(medicationId) {
         const response = await axios.put(
             `${this.BASE_URL}/medications/deactivate/${medicationId}`,

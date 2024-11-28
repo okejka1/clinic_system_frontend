@@ -16,8 +16,7 @@ const MedicationListPage = () => {
         isActive: ''
     });
     const [isAdmin, setIsAdmin] = useState(false);
-
-    const SAFE_THRESHOLD = 10;
+    const [medicationThresholds, setMedicationThresholds] = useState({});
 
     const fetchMedications = async () => {
         setLoading(true);
@@ -105,6 +104,26 @@ const MedicationListPage = () => {
         navigate(`/intakes/${medicationId}/add-intake`);
     };
 
+    // Handle threshold change for a specific medication
+    const handleThresholdChange = (medicationId, value) => {
+        setMedicationThresholds((prevState) => ({
+            ...prevState,
+            [medicationId]: value, // Set individual threshold for each medication
+        }));
+    };
+
+    // Save threshold for a specific medication
+    const handleSaveThreshold = async (medicationId) => {
+        const newThreshold = medicationThresholds[medicationId];
+        try {
+            await ApiService.changeCriticalUnitThreshold(medicationId, newThreshold);
+            fetchMedications(); // Refresh medications
+        } catch (error) {
+            console.error("Error updating critical threshold:", error);
+            setError('Failed to update critical threshold');
+        }
+    };
+
     return (
         <div className="medication-list-page">
             <h2>Medication List</h2>
@@ -150,6 +169,7 @@ const MedicationListPage = () => {
                             <th>Status</th>
                             <th>Description</th>
                             <th>Number of units</th>
+                            <th>Critical threshold of units</th>
                             {isAdmin && <th>Activation / Deletion</th>}
                             {isAdmin && <th>Add units</th>}
                             <th>View unit list</th>
@@ -159,7 +179,7 @@ const MedicationListPage = () => {
                         <tbody>
                         {medications.map((medication) => {
                             const isActive = medication.active;
-                            const isLowStock = medication.unitCount < SAFE_THRESHOLD;
+                            const isLowStock = medication.unitCount < medication.criticalUnitThreshold;
 
                             return (
                                 <tr key={medication.id}>
@@ -174,6 +194,30 @@ const MedicationListPage = () => {
                                     <td>{isActive ? 'Active' : 'Inactive'}</td>
                                     <td>{medication.description}</td>
                                     <td className={isLowStock ? 'low-stock' : ''}>{medication.unitCount}</td>
+                                    <td className={isLowStock ? 'low-stock' : ''}>
+                                        {isAdmin ? (
+                                            <>
+                                                <div className="action-buttons">
+                                                    <input
+                                                        className={`input-threshold ${isActive ? 'active' : 'inactive'}`}
+                                                        disabled={!isActive}
+                                                        type="number"
+                                                        value={medicationThresholds[medication.id] || medication.criticalUnitThreshold}
+                                                        onChange={(e) => handleThresholdChange(medication.id, e.target.value)}
+                                                    />
+                                                    <button
+                                                        className={`save-threshold-button ${isActive ? 'active' : 'inactive'}`}
+                                                        disabled={!isActive}
+                                                        onClick={() => handleSaveThreshold(medication.id)}
+                                                    >
+                                                        Save Threshold
+                                                    </button>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            medication.criticalUnitThreshold
+                                        )}
+                                    </td>
                                     {isAdmin && (
                                         <td>
                                             <div className="action-buttons">

@@ -37,6 +37,12 @@
     transition: border-color 0.3s ease;
 }
 
+.form-group input.error,
+.form-group textarea.error {
+    border-color: red;
+}
+
+
 button[type="submit"] {
     width: 100%;
     padding: 12px;
@@ -49,4 +55,7 @@ button[type="submit"] {
     transition: background-color 0.3s ease;
 }
 
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
 

@@ -150,7 +150,8 @@ button[type="submit"]:hover {
 /* Button Styles */
 .add-units-button,
 .create-intake-button,
-.view-units-button {
+.view-units-button
+.save-threshold-button{
     padding: 8px 12px;
     font-size: 0.9rem;
     border-radius: 4px;
@@ -162,12 +163,14 @@ button[type="submit"]:hover {
 
 .add-units-button.active,
 .create-intake-button.active,
-.view-units-button.active {
+.view-units-button.active,
+.save-threshold-button.active {
     background-color: #007bff; /* Blue */
 }
 
 .add-units-button.inactive,
-.create-intake-button.inactive {
+.create-intake-button.inactive,
+.save-threshold-button.inactive {
     background-color: #dc3545; /* Red */
     cursor: not-allowed;
 }
@@ -178,7 +181,8 @@ button[type="submit"]:hover {
 }
 
 .add-units-button:disabled,
-.create-intake-button:disabled {
+.create-intake-button:disabled,
+.save-threshold-button:disabled {
     opacity: 0.7; /* Make disabled buttons semi-transparent */
 }
 
