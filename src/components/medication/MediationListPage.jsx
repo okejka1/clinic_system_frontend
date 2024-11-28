@@ -226,6 +226,7 @@ const MedicationListPage = () => {
                                                     {isActive ? 'Deactivate' : 'Reactivate'}
                                                 </button>
                                                 <button className="delete"
+                                                        disabled={!isActive}
                                                         onClick={() => handleDeleteMedication(medication.id)}>Delete
                                                 </button>
                                             </div>
