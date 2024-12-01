@@ -1,15 +1,9 @@
-/* General container styling */
-form {
-    margin-bottom: 20px;
-}
-
-/* Style inputs with appropriate spacing */
-form input {
-    margin-right: 10px; /* Adds spacing between inputs */
-    margin-bottom: 15px; /* Adds vertical spacing for multiple rows */
+form .search-button {
+    margin-bottom: 15px; /* Same vertical spacing as inputs */
     padding: 10px;
     font-size: 1em;
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
+    width: 50%; /* Matches the width of inputs */
 }

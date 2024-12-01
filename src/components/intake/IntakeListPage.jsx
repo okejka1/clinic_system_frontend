@@ -76,7 +76,7 @@ const IntakeListPage = () => {
                     value={patientLastName}
                     onChange={(e) => setPatientLastName(e.target.value)}
                 />
-                <button type="submit">Search</button>
+                <button className="search-button" type="submit">Search</button>
             </form>
 
             {/* Intake List Table */}

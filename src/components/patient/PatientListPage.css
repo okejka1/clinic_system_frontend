@@ -1,0 +1,15 @@
+/* Style inputs with appropriate spacing */
+form input {
+    margin-right: 10px; /* Adds spacing between inputs */
+    margin-bottom: 15px; /* Adds vertical spacing for multiple rows */
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 80%;
+}
+.patients-list .search-input {
+    width: 60%;
+
+}

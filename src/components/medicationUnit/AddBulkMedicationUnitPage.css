@@ -135,3 +135,8 @@ button[type="submit"]:hover {
     color: #dc3545;
     font-weight: bold;
 }
+
+.add-bulk-medication-unit-form {
+    margin: 0 auto;
+    width: 50%;
+}
