@@ -8,7 +8,7 @@ function HomePage() {
 
     return (
         <div className="homepage-container">
-            <h1>Welcome to Medication distribution system</h1>
+            <h1>Welcome to medication distribution system</h1>
             <p className="homepage-intro">
                 Access various functionalities tailored to your role. Experience our solutions for effortless medication management and smooth distribution within your clinic.
             </p>
