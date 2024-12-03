@@ -73,7 +73,7 @@ const AddingMedicationPage = () => {
 
     return (
         <div className="add-medication-page">
-            <h1>Add New Medication</h1>
+            <h1>Add new medication</h1>
             <form onSubmit={handleSubmit} encType="multipart/form-data" noValidate>
                 <div className="form-group">
                     <label>Name:</label>
@@ -115,7 +115,7 @@ const AddingMedicationPage = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Critical Unit Threshold:</label>
+                    <label>Critical unit threshold:</label>
                     <input
                         type="number"
                         name="criticalUnitThreshold"

@@ -48,31 +48,31 @@ const IntakeListPage = () => {
             <form onSubmit={handleSearch}>
                 <input
                     type="text"
-                    placeholder="Medication Type"
+                    placeholder="Medication type"
                     value={medicationType}
                     onChange={(e) => setMedicationType(e.target.value)}
                 />
                 <input
                     type="text"
-                    placeholder="Clinician First Name"
+                    placeholder="Clinician first name"
                     value={clinicianFirstName}
                     onChange={(e) => setClinicianFirstName(e.target.value)}
                 />
                 <input
                     type="text"
-                    placeholder="Clinician Last Name"
+                    placeholder="Clinician last name"
                     value={clinicianLastName}
                     onChange={(e) => setClinicianLastName(e.target.value)}
                 />
                 <input
                     type="text"
-                    placeholder="Patient First Name"
+                    placeholder="Patient first name"
                     value={patientFirstName}
                     onChange={(e) => setPatientFirstName(e.target.value)}
                 />
                 <input
                     type="text"
-                    placeholder="Patient Last Name"
+                    placeholder="Patient last name"
                     value={patientLastName}
                     onChange={(e) => setPatientLastName(e.target.value)}
                 />
@@ -83,14 +83,14 @@ const IntakeListPage = () => {
             <table>
                 <thead>
                 <tr>
-                    <th>Intake Date</th>
-                    <th>Medication Name</th>
-                    <th>Medication Unit ID</th>
+                    <th>Intake date</th>
+                    <th>Medication name</th>
+                    <th>Medication unit ID</th>
                     <th>Dosage</th>
                     <th>Company</th>
-                    <th>Expiry Date</th>
-                    <th>Clinician Name</th>
-                    <th>Patient Name</th>
+                    <th>Expiry date</th>
+                    <th>Clinician name</th>
+                    <th>Patient name</th>
                 </tr>
                 </thead>
                 <tbody>

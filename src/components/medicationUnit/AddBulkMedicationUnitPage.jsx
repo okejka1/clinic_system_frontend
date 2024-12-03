@@ -82,11 +82,11 @@
 
         return (
             <div className="add-bulk-medication-unit-page">
-                <h2>Add Bulk Medication Units</h2>
+                <h2>Add bulk medication units</h2>
 
                 {medication ? (
                     <div className="medication-info">
-                        <h3>Medication Details</h3>
+                        <h3>Medication details</h3>
                         {medication.medicationPhotoUrl && (
                             <img
                                 src={medication.medicationPhotoUrl}
@@ -108,7 +108,7 @@
 
                 <form onSubmit={handleSubmit} className="add-bulk-medication-unit-form" noValidate>
                     <div className="form-group">
-                        <label htmlFor="expiryDate">Expiry Date</label>
+                        <label htmlFor="expiryDate">Expiry date</label>
                         <DatePicker
                             selected={expiryDate}
                             onChange={(date) => setExpiryDate(date)}

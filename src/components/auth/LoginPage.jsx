@@ -58,7 +58,7 @@ function LoginPage() {
                 {/* Left side - login form */}
                 <div className="login-section">
                     {/* Add a header for the system above the form */}
-                    <h1 className="login-header">Medicine Distribution System</h1>
+                    <h1 className="login-header">Medicine distribution system</h1>
 
                     <div className="login-form">
                         <h2>Login</h2>

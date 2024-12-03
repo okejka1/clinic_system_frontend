@@ -62,7 +62,7 @@ const MedicationUnitListPage = () => {
             {/* Medication Info */}
             {medication ? (
                 <div className="medication-info">
-                    <h3>Medication Details</h3>
+                    <h3>Medication details</h3>
                     {medication.medicationPhotoUrl && (
                         <img
                             src={medication.medicationPhotoUrl}
@@ -113,7 +113,7 @@ const MedicationUnitListPage = () => {
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Expiry Date</th>
+                                <th>Expiry date</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>

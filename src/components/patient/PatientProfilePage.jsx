@@ -45,21 +45,21 @@ const PatientProfilePage = () => {
 
     return (
         <div className="patient-profile">
-            <h1>Patient's Profile</h1>
+            <h1>Patient's profile</h1>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             {successMessage && <p className="success-message">{successMessage}</p>}
 
             {patient && (
                 <div className="patient-details">
-                    <h2>Personal Information</h2>
+                    <h2>Personal information</h2>
                     <p><strong>ID:</strong> {patient.id}</p>
-                    <p><strong>First Name:</strong> {patient.firstName}</p>
-                    <p><strong>Last Name:</strong> {patient.lastName}</p>
-                    <p><strong>Birth Date:</strong> {patient.birthDate}</p>
-                    <p><strong>Phone Number:</strong> {patient.phoneNumber}</p>
+                    <p><strong>First name:</strong> {patient.firstName}</p>
+                    <p><strong>Last name:</strong> {patient.lastName}</p>
+                    <p><strong>Birth date:</strong> {patient.birthDate}</p>
+                    <p><strong>Phone number:</strong> {patient.phoneNumber}</p>
 
                     <div className="medical-history-section">
-                        <h3>Medical History</h3>
+                        <h3>Medical history</h3>
                         {isEditing ? (
                             <>
                                 <textarea
@@ -83,7 +83,7 @@ const PatientProfilePage = () => {
                 </div>
             )}
 
-            <h2>Intake History</h2>
+            <h2>Intake history</h2>
             {intakes.length > 0 ? (
                 <table className="intake-table">
                     <thead>
@@ -91,7 +91,7 @@ const PatientProfilePage = () => {
                         <th>Date</th>
                         <th>Clinician</th>
                         <th>Medication</th>
-                        <th>Medication Unit</th>
+                        <th>Medication unit</th>
                     </tr>
                     </thead>
                     <tbody>

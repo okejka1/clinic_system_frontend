@@ -44,7 +44,7 @@ function UserListPage() {
 
     return (
         <div className="user-list">
-            <h2>List of Clinicians</h2>
+            <h2>List of clinicians</h2>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             <input
                 type="text"
@@ -57,8 +57,8 @@ function UserListPage() {
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>First name</th>
+                    <th>Last name</th>
                     <th>Email</th>
                     <th>Role</th>
                     <th>Actions</th>

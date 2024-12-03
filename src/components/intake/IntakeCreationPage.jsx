@@ -97,12 +97,12 @@ const IntakeCreationPage = () => {
 
     return (
         <div className="intake-creation-container">
-            <h2>Create Intake</h2>
+            <h2>Create intake</h2>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             {successMessage && <p className="success-message">{successMessage}</p>}
 
             <div className="medication-info">
-                <h3>Medication Details</h3>
+                <h3>Medication details</h3>
                 {medication ? (
                     <>
                         {medication.medicationPhotoUrl && (
@@ -124,7 +124,7 @@ const IntakeCreationPage = () => {
 
             <form onSubmit={handleSubmit} className="intake-form">
                 <div className="form-group">
-                    <label>Select Medication Unit:</label>
+                    <label>Select medication unit:</label>
                     <select
                         value={selectedMedicationUnit || ''}
                         onChange={(e) => setSelectedMedicationUnit(e.target.value)}
@@ -140,7 +140,7 @@ const IntakeCreationPage = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Search Patient:</label>
+                    <label>Search patient:</label>
                     <input
                         type="text"
                         placeholder="Search by name"
@@ -151,7 +151,7 @@ const IntakeCreationPage = () => {
                 </div>
 
                 <div className="patient-list">
-                    <h4>Select Patient:</h4>
+                    <h4>Select patient:</h4>
                     {patients.length > 0 ? (
                         patients.map((patient) => (
                             <div

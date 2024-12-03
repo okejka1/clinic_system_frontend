@@ -94,7 +94,7 @@ function AddClinicianPage() {
             <h2>Add Clinician</h2>
             <form onSubmit={handleSubmit} noValidate>
                 <div className="form-group">
-                    <label>First Name:</label>
+                    <label>First name:</label>
                     <input
                         type="text"
                         name="firstName"  // Ensure the name matches the state key
@@ -105,7 +105,7 @@ function AddClinicianPage() {
                 </div>
 
                 <div className="form-group">
-                    <label>Last Name:</label>
+                    <label>Last name:</label>
                     <input
                         type="text"
                         name="lastName"  // Ensure the name matches the state key

@@ -70,12 +70,12 @@ const AddPatientPage = () => {
 
     return (
         <div className="add-patient-page">
-            <h2>Add New Patient</h2>
+            <h2>Add new patient</h2>
             {errorMessage && <div className="error-message">{errorMessage}</div>}
             {successMessage && <div className="success-message">{successMessage}</div>}
             <form onSubmit={handleSubmit} noValidate>
                 <div className="form-group">
-                    <label>First Name:</label>
+                    <label>First name:</label>
                     <input
                         type="text"
                         name="firstName"
@@ -86,7 +86,7 @@ const AddPatientPage = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Last Name:</label>
+                    <label>Last name:</label>
                     <input
                         type="text"
                         name="lastName"
@@ -97,7 +97,7 @@ const AddPatientPage = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Birth Date:</label>
+                    <label>Birth date:</label>
                     <input
                         type="date"
                         name="birthDate"
@@ -108,7 +108,7 @@ const AddPatientPage = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Phone Number:</label>
+                    <label>Phone number:</label>
                     <input
                         type="tel"
                         name="phoneNumber"
@@ -119,7 +119,7 @@ const AddPatientPage = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Medical History:</label>
+                    <label>Medical history:</label>
                     <textarea
                         name="medicalHistory"
                         value={patientData.medicalHistory}
@@ -128,7 +128,7 @@ const AddPatientPage = () => {
                     />
                 </div>
 
-                <button type="submit">Add Patient</button>
+                <button type="submit">Add patient</button>
             </form>
 
         </div>

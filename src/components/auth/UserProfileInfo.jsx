@@ -38,12 +38,12 @@ const UserInfoPage = () => {
 
     return (
         <div className="user-info-page">
-            <h1>User Information</h1>
+            <h1>User information</h1>
             {errorMessage && <p className="error-message">{errorMessage}</p>}
 
             {clinician && (
                 <div className="clinician-info">
-                    <h2>Clinician Profile</h2>
+                    <h2>Clinician profile</h2>
                     <p><strong>ID:</strong> {clinician.id}</p>
                     <p><strong>Name:</strong> {clinician.firstName} {clinician.lastName}</p>
                     <p><strong>Email:</strong> {clinician.email}</p>
@@ -51,15 +51,15 @@ const UserInfoPage = () => {
                 </div>
             )}
 
-            <h2>Intake History</h2>
+            <h2>Intake history</h2>
             {intakes.length > 0 ? (
                 <table className="intake-table">
                     <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Patient Name</th>
+                        <th>Patient name</th>
                         <th>Medication</th>
-                        <th>Medication Unit</th>
+                        <th>Medication unit</th>
                     </tr>
                     </thead>
                     <tbody>
