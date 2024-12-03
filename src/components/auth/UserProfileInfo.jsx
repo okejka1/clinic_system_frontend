@@ -43,7 +43,7 @@ const UserInfoPage = () => {
 
             {clinician && (
                 <div className="clinician-info">
-                    <h2>Clinician profile</h2>
+                    <h2>User profile</h2>
                     <p><strong>ID:</strong> {clinician.id}</p>
                     <p><strong>Name:</strong> {clinician.firstName} {clinician.lastName}</p>
                     <p><strong>Email:</strong> {clinician.email}</p>
