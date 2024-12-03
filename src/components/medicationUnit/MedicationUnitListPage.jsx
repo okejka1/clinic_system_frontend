@@ -96,7 +96,7 @@ const MedicationUnitListPage = () => {
                         value={filterStatus}
                         onChange={(e) => setFilterStatus(e.target.value)}
                     >
-                        <option value="">all</option>
+                        <option value="">All</option>
                         <option value="available">available</option>
                         <option value="given">given</option>
                     </select>
