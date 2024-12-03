@@ -73,7 +73,7 @@ const AddingMedicationPage = () => {
 
     return (
         <div className="add-medication-page">
-            <h1>Add new medication</h1>
+            <h2>Add new medication</h2>
             <form onSubmit={handleSubmit} encType="multipart/form-data" noValidate>
                 <div className="form-group">
                     <label>Name:</label>

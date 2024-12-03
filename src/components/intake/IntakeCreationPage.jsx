@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
 import './IntakeCreationPage.css';
+import '../styles.css'
 
 const IntakeCreationPage = () => {
     const { medicationId } = useParams();

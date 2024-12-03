@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ApiService from '../../service/ApiService';
 import { useNavigate } from 'react-router-dom';
 import './AddPatientPage.css';
-import '../../index.css'
+import "../styles.css";
 
 const AddPatientPage = () => {
     const [patientData, setPatientData] = useState({

@@ -9,13 +9,6 @@
     font-family: 'Arial', sans-serif;
 }
 
-/* Heading styles */
-.add-clinician h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-    font-size: 30px;
-}
 
 /* Form group layout */
 .form-group {

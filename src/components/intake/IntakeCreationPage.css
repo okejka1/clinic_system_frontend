@@ -7,18 +7,13 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.intake-creation-container h2 {
-    text-align: center;
-    color: #333;
-}
+
 
 .medication-info {
     margin-bottom: 20px;
 }
 
-.medication-info h3 {
-    color: #333;
-}
+
 
 .medication-image {
     width: 100px;
