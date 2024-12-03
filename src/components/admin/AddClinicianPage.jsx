@@ -91,7 +91,7 @@ function AddClinicianPage() {
             {successMessage && <p className="success-message">{successMessage}</p>}
 
             {/* Form to Add Clinician */}
-            <h2>Add Clinician</h2>
+            <h2>Add clinician</h2>
             <form onSubmit={handleSubmit} noValidate>
                 <div className="form-group">
                     <label>First name:</label>
