@@ -152,7 +152,7 @@ const MedicationListPage = () => {
                         <option value="false">Inactive</option>
                     </select>
                 </div>
-                <button type="submit">Apply Filters</button>
+                <button type="submit">Apply filters</button>
             </form>
 
             {loading ? (
@@ -213,7 +213,7 @@ const MedicationListPage = () => {
                                                         disabled={!isActive}
                                                         onClick={() => handleSaveThreshold(medication.id)}
                                                     >
-                                                        Save Threshold
+                                                        Save threshold
                                                     </button>
                                                 </div>
                                             </>
