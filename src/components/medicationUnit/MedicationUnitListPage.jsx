@@ -57,7 +57,7 @@ const MedicationUnitListPage = () => {
 
     return (
         <div className="medication-list-page">
-            <h2>Medication Units List</h2>
+            <h2>Medication units list</h2>
 
             {/* Medication Info */}
             {medication ? (
