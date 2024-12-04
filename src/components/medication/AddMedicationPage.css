@@ -59,3 +59,9 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+button[type="button"] {
+    width: 50%;
+    padding: 12px;
+    font-size: 1em;
+    font-weight: bold; /* Make the font bold */
+}

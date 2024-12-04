@@ -138,8 +138,20 @@ const AddingMedicationPage = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Photo (optional):</label>
-                    <input type="file" accept="image/*" onChange={handleFileChange} />
+                    <label htmlFor="file-upload">Photo (optional):</label>
+                    <input
+                        id="file-upload"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        style={{display: 'none'}} // Hide the default file input
+                    />
+                    <button
+                        type="button"
+                        onClick={() => document.getElementById('file-upload').click()}
+                    >
+                        Choose a file
+                    </button>
                 </div>
 
                 <button type="submit">Add Medication</button>
