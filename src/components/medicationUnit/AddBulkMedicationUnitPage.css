@@ -131,10 +131,7 @@ button[type="submit"]:hover {
     background-color: #dc3545; /* Red for inactive */
 }
 
-.error-message {
-    color: #dc3545;
-    font-weight: bold;
-}
+
 
 .add-bulk-medication-unit-form {
     margin: 0 auto;
