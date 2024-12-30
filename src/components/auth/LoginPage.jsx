@@ -68,7 +68,7 @@ function LoginPage() {
                                 <label>Email: </label>
                                 <input
                                     type="email"
-                                    test-data={"EMAIL-INPUT"}
+                                    test-data={"email-input"}
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
@@ -79,6 +79,7 @@ function LoginPage() {
                                 <label>Password: </label>
                                 <input
                                     type="password"
+                                    test-data={"password-input"}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
@@ -93,7 +94,7 @@ function LoginPage() {
                 <div className="vertical-line"></div>
 
                 {/* Right side - image */}
-                <div className="login-image-container">
+                <div className="login-image-container" test-data={"login-image"}>
                     <img src='./assets/images/pharmacy.png' alt="image" className="login-image"/>
                 </div>
             </div>
