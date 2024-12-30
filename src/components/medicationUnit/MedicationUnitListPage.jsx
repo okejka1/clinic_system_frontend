@@ -11,7 +11,7 @@ const MedicationUnitListPage = () => {
     const [filterStatus, setFilterStatus] = useState(""); // For dropdown filter
     const [message, setMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-
+    const [isAdmin, setIsAdmin] = useState(false);
     useEffect(() => {
         const fetchMedication = async () => {
             try {
@@ -27,6 +27,7 @@ const MedicationUnitListPage = () => {
 
     const fetchMedicationsUnits = async () => {
         try {
+            setIsAdmin(ApiService.isAdmin());
             const response = await ApiService.getMedicationUnits(medicationId, filterStatus);
             const medicationUnits = response.medicationUnitList || [];
             setMedicationUnits(medicationUnits);
@@ -115,7 +116,7 @@ const MedicationUnitListPage = () => {
                                 <th>ID</th>
                                 <th>Expiry date</th>
                                 <th>Status</th>
-                                <th>Actions</th>
+                                {isAdmin && <th>Actions</th> }
                             </tr>
                             </thead>
                             <tbody>
@@ -124,7 +125,7 @@ const MedicationUnitListPage = () => {
                                     <td>{medicationUnit.id}</td>
                                     <td>{medicationUnit.expiryDate}</td>
                                     <td>{medicationUnit.status}</td>
-                                    <td>
+                                    {isAdmin && (
                                         <div className="action-buttons">
                                             <button
                                                 className="delete"
@@ -133,7 +134,7 @@ const MedicationUnitListPage = () => {
                                                 Delete
                                             </button>
                                         </div>
-                                    </td>
+                                    )}
                                 </tr>
                             ))}
                             </tbody>
